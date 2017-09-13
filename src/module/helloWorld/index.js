@@ -25,7 +25,6 @@ class HelloWord extends Component {
     let {time} = this.state;
     //父组件传递给它的
     let {address} = this.props;
-    console.log(this.props)
     return (
       <div>
         <h3>时间{time.toDateString()}</h3>

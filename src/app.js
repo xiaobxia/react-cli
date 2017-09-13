@@ -3,12 +3,13 @@ import PropTypes from 'prop-types'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {
-  BrowserRouter as Router,
+  //HashRouter，得到的将是localhost/about，没有#
+  HashRouter as Router,
   Route,
   Link,
   IndexRoute
 } from 'react-router-dom'
-// import {Router, Route, Link, } from 'react-router'
+
 
 import HelloWord from './module/helloWorld'
 
@@ -28,7 +29,7 @@ export default class App extends Component {
           {/* 当 url 为/时渲染 */}
           <HelloWord address="漳"/>
           {/* 路由组件不能传props*/}
-          <Route path="/" component={HelloWord}></Route>
+          <Route path="/inbox" component={HelloWord}></Route>
         </div>
       </Router>
     );
