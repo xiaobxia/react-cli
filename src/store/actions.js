@@ -5,6 +5,7 @@ import * as types from './actionTypes'
 //TODO 可类比vue中的action
 
 export const changeCount = (number) => {
+  //如果不传，那就会是一个proxy对象传进来
   //返回的就是reducer中的action
   return {
     type: types.CHANGE_COUNT,

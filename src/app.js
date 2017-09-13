@@ -10,17 +10,30 @@ import {
   IndexRoute
 } from 'react-router-dom'
 
+import * as globAction from './store/actions';
+
 
 import HelloWord from './module/helloWorld'
 
 
-export default class App extends Component {
+class App extends Component {
+  constructor() {
+    super();
+    //需要绑定上下文
+    this.titleClickHandler = this.titleClickHandler.bind(this);
+  }
+
+  titleClickHandler() {
+    this.props.actions.changeCount(10);
+  }
 
   render() {
+    console.log(this.props)
     return (
       <Router>
         {/* Router中只能有一个子元素*/}
         <div>
+          <h3 onClick={this.titleClickHandler}>react{this.props.getCount}</h3>
           <ul>
             {/* Link需要在Router中使用*/}
             <li><Link to="/about">About</Link></li>
@@ -35,6 +48,20 @@ export default class App extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  getCount: state.glob.count
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(globAction, dispatch)
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
+
 
 //TODO 有了connect，就可以省去dispatch，
 // export default connect(
