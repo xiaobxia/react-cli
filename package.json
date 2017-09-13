@@ -18,6 +18,7 @@
     "assign-deep": "^0.4.6",
     "axios": "^0.16.2",
     "babel-polyfill": "^6.26.0",
+    "babel-preset-react": "^6.24.1",
     "element-ui": "^1.4.3",
     "font-awesome": "^4.7.0",
     "happypack": "^4.0.0-beta.4",
@@ -25,6 +26,12 @@
     "node-sass": "^4.5.3",
     "qr.js": "^0.0.0",
     "qs": "^6.5.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
     "sass-loader": "^6.0.6"
   },
   "devDependencies": {

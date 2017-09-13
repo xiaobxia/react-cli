@@ -1,22 +1,15 @@
-import mutations from './mutations';
-import actions from './actions';
+import { combineReducers } from 'redux'
+import { createStore } from 'redux'
+import reducers from './reducers'
+//TODO 一个应用只有一个state
 const state = {
-  config: {
-    sidebar: true
-  },
-  mobile: false,
-  sidebar: true,
-  menu: [],
-  routers: {},
-  globalLoading: false,
-  globalLoginDialog: false
+  name: 'react'
 };
 
-const getters = {
-  getGlobalLoading: state => state.globalLoading,
-  getGlobalLoginDialog: state => state.globalLoginDialog
-};
+const reducer = combineReducers({
+  reducers
+});
 
+const store = createStore(reducer);
 
-
-export default {state, getters, mutations, actions};
+export default store

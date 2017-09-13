@@ -11,7 +11,7 @@ function resolve (dir) {
 
 module.exports = {
   entry: {
-    app: './src/index.js'
+    app: './src/store.js'
   },
   output: {
     path: config.build.assetsRoot,

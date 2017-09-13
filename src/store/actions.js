@@ -1,28 +1,42 @@
 /**
- * Created by xiaobxia on 2017/8/28.
+ * Created by xiaobxia on 2017/9/13.
  */
-import * as types from './mutationTypes';
-const actions = {
-  // Sidebar: show, hide, toggle
-  SHOW_SIDEBAR ({ commit }) {
-    commit('SIDEBAR', true);
-  },
-  HIDE_SIDEBAR ({ commit }) {
-    commit('SIDEBAR', false);
-  },
-  TOGGLE_SIDEBAR ({ commit, state }) {
-    commit('SIDEBAR', !state.config.sidebar);
-  },
+import * as types from './actionTypes'
+//TODO 可类比vue中的action
 
-  //SideBar Menu
-  openMenu ({ commit }, item) {
-    commit(types.SIDEBAR_MENU_OPEN, {item});
-  },
-  closeMenu ({ commit }, item) {
-    commit(types.SIDEBAR_MENU_CLOSE, {item});
-  },
-  toggleMenu ({ commit }, item) {
-    commit(types.SIDEBAR_MENU_TOGGLE, {item});
+export const changeCount = (number) => {
+  //返回的就是reducer中的action
+  return {
+    type: types.CHANGE_COUNT,
+    number
   }
 };
-export default actions;
+
+
+// export const increment = (nodeId) => ({
+//   type: types.INCREMENT,
+//   nodeId
+// })
+//
+// let nextId = 0
+// export const createNode = () => ({
+//   type: types.CREATE_NODE,
+//   nodeId: `new_${nextId++}`
+// })
+//
+// export const deleteNode = (nodeId) => ({
+//   type: types.DELETE_NODE,
+//   nodeId
+// })
+//
+// export const addChild = (nodeId, childId) => ({
+//   type: types.ADD_CHILD,
+//   nodeId,
+//   childId
+// })
+//
+// export const removeChild = (nodeId, childId) => ({
+//   type: types.REMOVE_CHILD,
+//   nodeId,
+//   childId
+// })
