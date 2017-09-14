@@ -27,12 +27,61 @@ class App extends Component {
     this.props.actions.changeCount(10);
   }
 
+  state = {
+    timer: 0,
+    timer2: 0,
+    testState: 'testState',
+    list: [{name: 'list1.1'}, {name: 'list1.2'}]
+  };
+  //生命周期mount
+  componentDidMount() {
+    this.timerID = setInterval(
+      () => this.tick(),
+      1000
+    );
+    this.timerID2 = setInterval(() => {
+      this.tick2()
+    }, 1000);
+  }
+
+  //生命周期销毁前
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  tick() {
+    //只会修改timer的值，行为应该是merge
+    this.setState({
+      timer: this.state.timer + 1
+    });
+  }
+
+  tick2() {
+    //参数，原来的state
+    //只会修改timer的值，行为应该是merge
+    this.setState((preState) => ({
+      timer2: preState.timer2 + 1
+    }));
+  }
+
   render() {
     console.log(this.props)
     return (
       <Router>
         {/* Router中只能有一个子元素*/}
         <div>
+          <ul>
+            {/*列表渲染*/}
+            {this.state.list.map((item, index) => {
+              return (<p>{item.name + index}</p>);
+            })}
+          </ul>
+          <p>{this.state.testState}</p>
+          {/*react自己的state，相当于vue的data*/}
+          <p>timer: {this.state.timer}</p>
+          <p>timer2: {this.state.timer2}</p>
+          {/*条件渲染*/}
+          {this.props.getCount === 1 ? <HelloWord address="1"/> : <HelloWord address="10"/>}
           <h3 onClick={this.titleClickHandler}>react{this.props.getCount}</h3>
           <ul>
             {/* Link需要在Router中使用*/}
