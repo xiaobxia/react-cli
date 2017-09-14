@@ -24,6 +24,9 @@ class App extends Component {
   }
 
   titleClickHandler() {
+    //方式1,用这种方式时connect中就不要弄actions了
+    //this.props.dispatch(globAction.changeCount(10));
+    //注册在了props上
     this.props.actions.changeCount(10);
   }
 
@@ -110,11 +113,16 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  getCount: state.glob.count
-});
+const mapStateToProps = state => {
+  //可以在这筛选state
+  let localState = state.glob;
+  return {
+    getCount: localState.count
+  }
+};
 
 const mapDispatchToProps = dispatch => ({
+  //action在此为引入
   actions: bindActionCreators(globAction, dispatch)
 });
 
@@ -122,8 +130,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(App)
-
-
-//TODO 有了connect，就可以省去dispatch，
-// export default connect(
-// );

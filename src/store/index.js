@@ -16,11 +16,15 @@ const reducer = combineReducers({
 */
 
 //全局的state，会以第二个参数给的初始值为准，没有这个参数就会以reducer中的为准
+//第二个参数一般只对同构应用有用（服务端渲染）
 const store = createStore(reducer, {
   glob: {
     count: 1
   }
 });
+
+//发出action
+//store.dispatch(addTodo('Learn about actions'))
 
 console.log(store.getState())
 

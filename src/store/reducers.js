@@ -6,7 +6,9 @@ import * as types from './actionTypes';
 //TODO 不要直接对state做修改，而是对其副本做修改
 //TODO state必须有默认值
 //TODO 这里的state不是指整个state树，而是combineReducers中key对应的state
+//TODO reducer是纯净的，不能有请求，个随机数据
 export default function reducers(state = {}, action) {
+  //这里的state是glob内的state
   let data = Object.assign({}, state);
   //action是actions中返回的对象
   switch (action.type) {
