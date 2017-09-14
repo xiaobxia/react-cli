@@ -31,7 +31,7 @@ class App extends Component {
     timer: 0,
     timer2: 0,
     testState: 'testState',
-    list: [{name: 'list1.1'}, {name: 'list1.2'}]
+    list: [{name: 'list1.'}, {name: 'list1.'}]
   };
   //生命周期mount
   componentDidMount() {
@@ -40,8 +40,11 @@ class App extends Component {
       1000
     );
     this.timerID2 = setInterval(() => {
-      this.tick2()
+      this.tick2();
     }, 1000);
+    this.timerID3 = setInterval(() => {
+      this.tick3();
+    }, 1000)
   }
 
   //生命周期销毁前
@@ -64,6 +67,15 @@ class App extends Component {
     }));
   }
 
+  tick3() {
+    this.setState((preState) => ({
+      //必须返回新的list，所以不能直接push
+      list: [...preState.list, {
+        name: 'list1.'
+      }]
+    }));
+  }
+
   render() {
     console.log(this.props)
     return (
@@ -71,13 +83,13 @@ class App extends Component {
         {/* Router中只能有一个子元素*/}
         <div>
           <ul>
-            {/*列表渲染*/}
+            {/*列表渲染，必须有key*/}
             {this.state.list.map((item, index) => {
-              return (<p>{item.name + index}</p>);
+              return (<p key={index}>{item.name + index}</p>);
             })}
           </ul>
           <p>{this.state.testState}</p>
-          {/*react自己的state，相当于vue的data*/}
+          {/*获取react自己的state，相当于vue的data*/}
           <p>timer: {this.state.timer}</p>
           <p>timer2: {this.state.timer2}</p>
           {/*条件渲染*/}
