@@ -1,18 +1,18 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {
   //HashRouter，得到的将是localhost/about，没有#
   HashRouter as Router,
   Route,
   Link,
-  IndexRoute
+  IndexRoute,
+  history
 } from 'react-router-dom'
 
-import * as globAction from './store/actions';
+import {mapStateToProps, mapDispatchToProps} from './store'
 
-
+import Page1 from './module/page1'
 import HelloWord from './module/helloWorld'
 
 
@@ -21,6 +21,7 @@ class App extends Component {
     super();
     //需要绑定上下文
     this.titleClickHandler = this.titleClickHandler.bind(this);
+    this.jump = this.jump.bind(this);
   }
 
   titleClickHandler() {
@@ -38,16 +39,16 @@ class App extends Component {
   };
   //生命周期mount
   componentDidMount() {
-    this.timerID = setInterval(
-      () => this.tick(),
-      1000
-    );
-    this.timerID2 = setInterval(() => {
-      this.tick2();
-    }, 1000);
-    this.timerID3 = setInterval(() => {
-      this.tick3();
-    }, 1000)
+    // this.timerID = setInterval(
+    //   () => this.tick(),
+    //   1000
+    // );
+    // this.timerID2 = setInterval(() => {
+    //   this.tick2();
+    // }, 1000);
+    // this.timerID3 = setInterval(() => {
+    //   this.tick3();
+    // }, 1000)
   }
 
   //生命周期销毁前
@@ -79,12 +80,18 @@ class App extends Component {
     }));
   }
 
+  jump() {
+    console.log(this)
+  }
+
   render() {
-    console.log(this.props)
+    console.log(this.props.location)
     return (
       <Router>
         {/* Router中只能有一个子元素*/}
         <div>
+          <Route path="/about" component={Page1}></Route>
+          <p onClick={this.jump}>路由js跳转</p>
           <ul>
             {/*列表渲染，必须有key*/}
             {this.state.list.map((item, index) => {
@@ -96,8 +103,8 @@ class App extends Component {
           <p>timer: {this.state.timer}</p>
           <p>timer2: {this.state.timer2}</p>
           {/*条件渲染*/}
-          {this.props.getCount === 1 ? <HelloWord address="1"/> : <HelloWord address="10"/>}
-          <h3 onClick={this.titleClickHandler}>react{this.props.getCount}</h3>
+          {this.props.glob.count === 1 ? <HelloWord address="1"/> : <HelloWord address="10"/>}
+          <h3 onClick={this.titleClickHandler}>react{this.props.glob.count}</h3>
           <ul>
             {/* Link需要在Router中使用*/}
             <li><Link to="/about">About</Link></li>
@@ -113,18 +120,6 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  //可以在这筛选state
-  let localState = state.glob;
-  return {
-    getCount: localState.count
-  }
-};
-
-const mapDispatchToProps = dispatch => ({
-  //action在此为引入
-  actions: bindActionCreators(globAction, dispatch)
-});
 
 export default connect(
   mapStateToProps,

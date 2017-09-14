@@ -3,11 +3,7 @@
  */
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {bindActionCreators} from 'redux'
-import {connect} from 'react-redux'
-
-
-import {withRouter} from 'react-router-dom'
+//import {connect} from 'react-redux'
 
 
 class HelloWord extends Component {
@@ -25,6 +21,7 @@ class HelloWord extends Component {
     let {time} = this.state;
     //父组件传递给它的
     let {address} = this.props;
+    console.log(this.props)
     return (
       <div>
         <h3>时间{time.toDateString()}</h3>
@@ -34,7 +31,7 @@ class HelloWord extends Component {
   }
 }
 
-export default withRouter(HelloWord);
+export default HelloWord;
 
 //TODO 有了connect，就可以省去dispatch，
 // export default connect(
