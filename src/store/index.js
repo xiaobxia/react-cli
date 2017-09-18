@@ -33,7 +33,8 @@ const createStoreWithMiddleware = applyMiddleware(
 // });
 let initialState = {
   glob: {
-    count: 1
+    count: 1,
+    theme: 'light'
   }
 };
 

@@ -2,13 +2,11 @@
  * Created by xiaobxia on 2017/9/14.
  */
 import React, {Component} from 'react'
-import PropTypes from 'prop-types'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 
-
-class Page1 extends Component {
+class User extends Component {
   constructor() {
     super();
     this.jump = this.jump.bind(this);
@@ -28,4 +26,4 @@ class Page1 extends Component {
   }
 }
 
-export default withRouter(Page1);
+export default withRouter(User);

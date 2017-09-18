@@ -2,6 +2,8 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux'
+import 'antd/dist/antd.css';
+import './scss/main.scss'
 import App from './app';
 import {store} from './store'
 
