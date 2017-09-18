@@ -13,7 +13,7 @@ export default function reducer(state, action) {
       return data;
     }
     //TODO 需要有default返回返回旧的state
-    default:{
+    default: {
       return state
     }
   }

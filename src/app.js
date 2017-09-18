@@ -3,8 +3,8 @@ import {connect} from 'react-redux'
 import {
   //HashRouter，得到的将是localhost/about，没有#
   HashRouter as Router,
-  Route,
   Link,
+  Route,
   IndexRoute,
   history
 } from 'react-router-dom'
@@ -18,8 +18,10 @@ const { Header, Content, Footer, Sider } = Layout;
 
 import {mapStateToProps, mapDispatchToProps} from './store'
 
+import routes from './router'
+
 import User from './module/user'
-import HelloWord from './module/helloWorld'
+import HelloWord from './component/helloWorld'
 
 
 class App extends Component {
@@ -158,32 +160,9 @@ class App extends Component {
               </div>
             </Header>
             <Content style={{ margin: '0 16px' }}>
-              <div>
-                <Route path="/about" component={User}></Route>
-                <p onClick={this.jump}>路由js跳转</p>
-                <ul>
-                  {/*列表渲染，必须有key*/}
-                  {this.state.list.map((item, index) => {
-                    return (<p key={index}>{item.name + index}</p>);
-                  })}
-                </ul>
-                <p>{this.state.testState}</p>
-                {/*获取react自己的state，相当于vue的data*/}
-                <p>timer: {this.state.timer}</p>
-                <p>timer2: {this.state.timer2}</p>
-                {/*条件渲染*/}
-                {this.props.glob.count === 1 ? <HelloWord address="1"/> : <HelloWord address="10"/>}
-                <h3 onClick={this.titleClickHandler}>react{this.props.glob.count}</h3>
-                <ul>
-                  {/* Link需要在Router中使用*/}
-                  <li><Link to="/about">About</Link></li>
-                  <li><Link to="/inbox">Inbox</Link></li>
-                </ul>
-                {/* 当 url 为/时渲染 */}
-                <HelloWord address="漳"/>
-                {/* 路由组件不能传props*/}
-                <Route path="/inbox" component={HelloWord}></Route>
-              </div>
+              {routes.map(function (item, index) {
+                return (<Route key={index} path={item.path} component={item.component}></Route>)
+              })}
             </Content>
             <Footer style={{ textAlign: 'center' }}>
               xiaobxia console ©2017 Created by xiaobxia

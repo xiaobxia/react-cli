@@ -27,7 +27,8 @@ module.exports = {
       '@': resolve('src'),
       //通过module引入
       'module': path.resolve(__dirname, '../src/module'),
-      'util': path.resolve(__dirname, '../src/util')
+      'localUtil': path.resolve(__dirname, '../src/util'),
+      'localComponent': path.resolve(__dirname, '../src/component')
     }
   },
   plugins: [
