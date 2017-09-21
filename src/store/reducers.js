@@ -2,6 +2,7 @@
  * Created by xiaobxia on 2017/9/13.
  */
 import { combineReducers } from 'redux'
+import Immutable from 'immutable'
 import * as types from './actionTypes';
 //TODO 可类比vue中的mutation，区别在于在react中接受旧的state，修改后返回新的state
 //TODO 不要直接对state做修改，而是对其副本做修改
@@ -16,6 +17,7 @@ function reducers(state = {}, action) {
     case types.CHANGE_COUNT: {
       //不要直接修改state
       console.log(action)
+      data.set({})
       data.count = action.number;
       return data;
     }

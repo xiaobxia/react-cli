@@ -15,14 +15,8 @@ import {
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
-
 import {mapStateToProps, mapDispatchToProps} from './store'
-
 import routes from './router'
-
-import User from './module/user'
-import HelloWord from './component/helloWorld'
-
 
 class App extends Component {
   constructor() {
@@ -49,7 +43,7 @@ class App extends Component {
 
   onCollapse = (collapsed) => {
     console.log(collapsed);
-    this.setState({ collapsed });
+    this.setState({collapsed});
   };
 
   toggleCollapsed = () => {
@@ -106,10 +100,11 @@ class App extends Component {
 
   render() {
     let {theme} = this.props.glob;
+    console.log(this.props.glob)
     console.log(this.props.location)
     return (
       <Router>
-        <Layout style={{ minHeight: '100vh' }}>
+        <Layout style={{minHeight: '100vh'}}>
           <Sider
             trigger={null}
             collapsible
@@ -125,16 +120,16 @@ class App extends Component {
             </div>
             <Menu theme='dark' defaultSelectedKeys={['1']} mode="inline">
               <Menu.Item key="1">
-                <Icon type="pie-chart" />
+                <Icon type="pie-chart"/>
                 <span>Option 1</span>
               </Menu.Item>
               <Menu.Item key="2">
-                <Icon type="desktop" />
+                <Icon type="desktop"/>
                 <span>Option 2</span>
               </Menu.Item>
               <SubMenu
                 key="sub1"
-                title={<span><Icon type="user" /><span>User</span></span>}
+                title={<span><Icon type="user"/><span>User</span></span>}
               >
                 <Menu.Item key="3">Tom</Menu.Item>
                 <Menu.Item key="4">Bill</Menu.Item>
@@ -142,29 +137,29 @@ class App extends Component {
               </SubMenu>
               <SubMenu
                 key="sub2"
-                title={<span><Icon type="team" /><span>Team</span></span>}
+                title={<span><Icon type="team"/><span>Team</span></span>}
               >
                 <Menu.Item key="6">Team 1</Menu.Item>
                 <Menu.Item key="8">Team 2</Menu.Item>
               </SubMenu>
               <Menu.Item key="9">
-                <Icon type="file" />
+                <Icon type="file"/>
                 <span>File</span>
               </Menu.Item>
             </Menu>
           </Sider>
           <Layout>
             <Header className="app-header">
-              <div className="logo">
+              <div className="logo" onClick={this.titleClickHandler}>
                 xiaobxia console
               </div>
             </Header>
-            <Content style={{ margin: '0 16px' }}>
+            <Content style={{margin: '0 16px'}}>
               {routes.map(function (item, index) {
                 return (<Route exact key={index} path={item.path} component={item.component}></Route>)
               })}
             </Content>
-            <Footer style={{ textAlign: 'center' }}>
+            <Footer style={{textAlign: 'center'}}>
               xiaobxia console ©2017 Created by xiaobxia
             </Footer>
           </Layout>
@@ -173,7 +168,6 @@ class App extends Component {
     );
   }
 }
-
 
 export default connect(
   mapStateToProps,

@@ -1,7 +1,7 @@
 import React from 'react'
-import Dashboard from 'bundle-loader?lazy!module/dashboard'
-import User from 'bundle-loader?lazy!../module/user'
 import Bundle from '../component/bundle'
+import Dashboard from 'bundle-loader?lazy!module/dashboard'
+import User from 'bundle-loader?lazy!module/user'
 
 //router4就得以这种方式懒加载
 

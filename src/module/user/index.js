@@ -7,21 +7,23 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 
 class User extends Component {
-  constructor() {
-    super();
-    this.jump = this.jump.bind(this);
+  constructor(props) {
+    super(props);
   }
-  jump() {
-    //路由跳转
-    this.props.history.push('/index?a=a');
-  }
+
+  changeCountHandler = () => {
+  };
+
   render() {
     //query在search里
     //console.log(this.props.location.search);
     // return super.render();
+    //console.log(this.props.glob)
     return (
       <div>
-        <h3 onClick={this.jump}>routeView</h3>
+        <p>count</p>
+        <h3>routeView</h3>
+        <button onClick={this.changeCountHandler}></button>
       </div>
     );
   }
