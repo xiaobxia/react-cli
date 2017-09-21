@@ -161,7 +161,7 @@ class App extends Component {
             </Header>
             <Content style={{ margin: '0 16px' }}>
               {routes.map(function (item, index) {
-                return (<Route key={index} path={item.path} component={item.component}></Route>)
+                return (<Route exact key={index} path={item.path} component={item.component}></Route>)
               })}
             </Content>
             <Footer style={{ textAlign: 'center' }}>
