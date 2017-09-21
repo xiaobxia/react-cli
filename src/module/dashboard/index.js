@@ -9,7 +9,7 @@ import {withRouter} from 'react-router-dom'
 class Dashboard extends Component {
   render() {
     //query在search里
-    console.log(this.props.location.search);
+    //console.log(this.props.location.search);
     return (
       <div>
         <h3>dashboard</h3>

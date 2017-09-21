@@ -1,24 +1,38 @@
-const lazyLoading = (path, index = false) => () => System.import(`module/${path}${index ? '/index' : ''}.js`);
+import React from 'react'
+import Dashboard from 'bundle-loader?lazy!module/dashboard'
+import User from 'bundle-loader?lazy!../module/user'
+import Bundle from '../component/bundle'
 
+//router4就得以这种方式懒加载
+
+let getComponent = (component) => {
+  return (props) => (
+    <Bundle load={component}>
+      {(Container) => {
+        return (<Container {...props}/>);
+      }}
+    </Bundle>
+  );
+};
 export default [
   {
     name: 'Home',
     path: '/home',
-    component: lazyLoading('dashboard/index')
+    component: getComponent(Dashboard)
   },
   {
     name: 'Dashboard Home',
     path: '/',
-    component: lazyLoading('dashboard/index')
+    component: getComponent(Dashboard)
   },
   {
     name: 'Dashboard',
     path: '/dashboard',
-    component: lazyLoading('dashboard/index')
+    component: getComponent(Dashboard)
   },
   {
     name: 'User',
     path: '/user/index',
-    component: lazyLoading('user/index')
+    component: getComponent(User)
   }
 ];

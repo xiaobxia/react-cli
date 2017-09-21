@@ -17,7 +17,8 @@ class User extends Component {
   }
   render() {
     //query在search里
-    console.log(this.props.location.search);
+    //console.log(this.props.location.search);
+    // return super.render();
     return (
       <div>
         <h3 onClick={this.jump}>routeView</h3>
