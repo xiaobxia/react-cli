@@ -16,6 +16,30 @@ class Dashboard extends Component {
     input1Value: 0
   };
 
+  componentWillMount() {
+    console.log('将要装载组件');
+  }
+
+  componentDidMount() {
+    console.log('装载组件完成');
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log('组件将要更新');
+    console.log(nextProps);
+    console.log(nextState);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('组件更新完成');
+    console.log(prevProps);
+    console.log(prevState);
+  }
+
+  componentWillUnmount() {
+    console.log('将要卸载组件');
+  }
+
   input1ValueChange = (e) => {
     this.setState({
       input1Value: e.target.value
