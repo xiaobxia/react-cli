@@ -6,6 +6,8 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 
+import HelloWord from 'localComponent/helloWorld'
+
 class Dashboard extends Component {
   //这种写法不用bind
   jumpToUser = () => {
@@ -47,12 +49,22 @@ class Dashboard extends Component {
     console.log(this.refs.input1.value)
   };
 
+  changeChildrenData = () => {
+    this.refs.helloword.addCount();
+  };
+
+  childrenChange = (newValue) => {
+    console.log(newValue)
+  };
+
   render() {
     //query在search里
     //console.log(this.props.location.search);
     return (
       <div>
         <h3>dashboard</h3>
+        <button onClick={this.changeChildrenData}>改变子组件</button>
+        <HelloWord ref="helloword" name="xiaobxia" onChange={this.childrenChange}></HelloWord>
         <p>input1: {this.state.input1Value}</p>
         <input ref="input1" value={this.state.input1Value} onChange={this.input1ValueChange}></input>
         <button onClick={this.jumpToUser}>去user</button>
