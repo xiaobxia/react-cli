@@ -11,21 +11,37 @@ class User extends Component {
     super(props);
   }
 
-  changeCountHandler = () => {
-  };
-
   render() {
     //query在search里
     console.log(this.props.location.search);
+    console.log(this.props.user);
     console.log(this.props.glob);
     return (
       <div>
-        <p>count</p>
-        <h3>routeView</h3>
-        <button onClick={this.changeCountHandler}></button>
+        <h3>USER</h3>
       </div>
     );
   }
 }
 
-export default withRouter(User);
+export const mapStateToProps = state => {
+  //可以在这筛选state
+  //不注入全局的可以防止全局渲染
+  return {
+    user: state.user,
+    glob: state.glob
+  }
+};
+
+// export const mapDispatchToProps = dispatch => ({
+//   //action在此为引入
+//   actions: bindActionCreators(globAction, dispatch)
+// });
+
+
+export default connect(
+  mapStateToProps
+  // mapDispatchToProps
+)(withRouter(User))
+
+// export default withRouter(User);

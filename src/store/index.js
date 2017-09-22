@@ -34,6 +34,9 @@ let initialState = {
     count: 1,
     theme: 'light'
   }
+  // user: {
+  //   type: 'user'
+  // }
 };
 
 export let store = createStoreWithMiddleware(globReducers, initialState);
