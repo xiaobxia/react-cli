@@ -23,7 +23,6 @@ class App extends Component {
     super();
     //需要绑定上下文
     this.titleClickHandler = this.titleClickHandler.bind(this);
-    this.jump = this.jump.bind(this);
   }
 
   titleClickHandler() {
@@ -92,10 +91,6 @@ class App extends Component {
         name: 'list1.'
       }]
     }));
-  }
-
-  jump() {
-    console.log(this)
   }
 
   render() {
