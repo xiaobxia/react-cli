@@ -16,9 +16,8 @@ class User extends Component {
 
   render() {
     //query在search里
-    //console.log(this.props.location.search);
-    // return super.render();
-    //console.log(this.props.glob)
+    console.log(this.props.location.search);
+    console.log(this.props.glob);
     return (
       <div>
         <p>count</p>
