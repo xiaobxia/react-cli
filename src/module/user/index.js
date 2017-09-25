@@ -11,6 +11,10 @@ class User extends Component {
     super(props);
   }
 
+  state = {
+    type: 'add'
+  };
+
   render() {
     //query在search里
     console.log(this.props.location.search);
@@ -19,6 +23,7 @@ class User extends Component {
     return (
       <div>
         <h3>USER</h3>
+        {this.state.type === 1 ? (<p>1</p>) : (<p>2</p>)}
       </div>
     );
   }
