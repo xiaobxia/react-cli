@@ -8,9 +8,6 @@ import React, {Component, PropTypes} from 'react'
 
 class HelloWord extends Component {
   //父组件传递给它的
-  static propTypes = {
-    address: PropTypes.string
-  };
 
   state = {
     time: new Date(),
@@ -43,6 +40,27 @@ class HelloWord extends Component {
     );
   }
 }
+
+HelloWord.propTypes = {
+  //字符串
+  type: PropTypes.string,
+  //元素或字符串
+  icon: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+  //布尔
+  disabled: PropTypes.bool,
+  //数字
+  maxLength: PropTypes.number,
+  //任何
+  defaultValue: PropTypes.any,
+  //其中之一
+  size: PropTypes.oneOf(['large', 'small', 'mini']),
+  //html节点
+  prepend: PropTypes.node,
+  //对象
+  autosize: PropTypes.object,
+  //函数
+  onFocus: PropTypes.func
+};
 export default HelloWord;
 
 //TODO 有了connect，就可以省去dispatch，
