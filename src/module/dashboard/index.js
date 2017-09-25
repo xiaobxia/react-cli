@@ -63,6 +63,9 @@ class Dashboard extends Component {
     return (
       <div>
         <h3>dashboard</h3>
+        <p>插入html</p>
+        {/* 插入html */}
+        <p dangerouslySetInnerHTML={{__html: '<p>我是一段html</p>'}}></p>
         <button onClick={this.changeChildrenData}>改变子组件</button>
         <HelloWord ref="helloword" name="xiaobxia" onChange={this.childrenChange}></HelloWord>
         <p>input1: {this.state.input1Value}</p>

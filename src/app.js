@@ -85,7 +85,8 @@ class App extends Component {
   }
 
   tick3() {
-    this.setState((preState) => ({
+    //TODO setState中函数的参数
+    this.setState((preState, props) => ({
       //必须返回新的list，所以不能直接push
       list: [...preState.list, {
         name: 'list1.'
