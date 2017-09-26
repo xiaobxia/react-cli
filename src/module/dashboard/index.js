@@ -42,6 +42,12 @@ class Dashboard extends Component {
     console.log('将要卸载组件');
   }
 
+  shouldComponentUpdate(props, newState) {
+    console.log('是否更新');
+    //返回false就不更新
+    return true;
+  }
+
   input1ValueChange = (e) => {
     this.setState({
       input1Value: e.target.value
