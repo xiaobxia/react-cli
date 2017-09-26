@@ -8,6 +8,10 @@ import React, {Component, PropTypes} from 'react'
 
 class HelloWord extends Component {
   //父组件传递给它的
+  //默认的props
+  static defaultProps = {
+    icon: 'delete'
+  };
 
   state = {
     time: new Date(),
@@ -29,13 +33,14 @@ class HelloWord extends Component {
     //局部的类似于vue中的data
     let {time, count} = this.state;
     //父组件传递给它的
-    let {name} = this.props;
+    let {name, icon} = this.props;
     //console.log(this.props)
     return (
       <div>
         <h3>时间{time.toDateString()}</h3>
         <p>计数{count}</p>
         <p>名字{name}</p>
+        <p>icon{icon}</p>
       </div>
     );
   }

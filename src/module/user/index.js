@@ -6,6 +6,11 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 
+//无状态组件，性能会更好，没有state，也没有生命周期
+const HelloMessage = (props) => {
+  return (<div>Hello {props.name}</div>);
+};
+
 class User extends Component {
   constructor(props) {
     super(props);
@@ -22,6 +27,7 @@ class User extends Component {
     console.log(this.props.glob);
     return (
       <div>
+        <HelloMessage name="xiaobxia"/>
         <h3>USER</h3>
         {this.state.type === 1 ? (<p>1</p>) : (<p>2</p>)}
       </div>

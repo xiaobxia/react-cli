@@ -115,6 +115,7 @@ class App extends Component {
               />
             </div>
             <Menu theme='dark' defaultSelectedKeys={['1']} mode="inline">
+              {/*组件中的命名空间*/}
               <Menu.Item key="1">
                 <Icon type="pie-chart"/>
                 <span>Option 1</span>
