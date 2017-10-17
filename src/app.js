@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import {Provider} from 'react-redux'
 import 'antd/dist/antd.css';
-import '../../scss/main.scss';
-import Main from './main';
-import {store} from '../../store'
+import './scss/main.scss';
+import Main from './module/main';
+import {store} from './store'
 //国际化
 import {LocaleProvider} from 'antd';
 import {addLocaleData, IntlProvider} from 'react-intl';
@@ -11,7 +11,7 @@ import 'intl';
 import 'intl/locale-data/jsonp/en.js';
 // 中文
 import appLocaleData from 'react-intl/locale-data/zh';
-import zhMessages from '../../../locales/zh.json';
+import zhMessages from '../locales/zh.json';
 const appLocale = {
   messages: {
     ...zhMessages
@@ -40,13 +40,15 @@ class App extends Component {
     super();
   }
   render() {
-    return (<LocaleProvider locale={appLocale.antd}>
-      <IntlProvider locale={appLocale.locale} messages={appLocale.messages}>
-        <Provider store={store}>
-          <Main/>
-        </Provider>
-      </IntlProvider>
-    </LocaleProvider>)
+    return (
+      <LocaleProvider locale={appLocale.antd}>
+        <IntlProvider locale={appLocale.locale} messages={appLocale.messages}>
+          <Provider store={store}>
+            <Main/>
+          </Provider>
+        </IntlProvider>
+      </LocaleProvider>
+    )
   }
 }
 
