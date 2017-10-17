@@ -8,12 +8,13 @@ import {
   IndexRoute,
   history
 } from 'react-router-dom'
+import {FormattedMessage, injectIntl} from 'react-intl';
 
 import {
   Menu, Icon, Button, Layout, Breadcrumb
 } from 'antd';
-const { SubMenu } = Menu;
-const { Header, Content, Footer, Sider } = Layout;
+const {SubMenu} = Menu;
+const {Header, Content, Footer, Sider} = Layout;
 
 import {mapStateToProps, mapDispatchToProps} from './store'
 import routes from './router'
@@ -95,9 +96,7 @@ class App extends Component {
   }
 
   render() {
-    let {theme} = this.props.glob;
-    console.log(this.props.glob)
-    console.log(this.props.location)
+    let locale = this.props.intl.formatMessage;
     return (
       <Router>
         <Layout style={{minHeight: '100vh'}}>
@@ -157,7 +156,10 @@ class App extends Component {
               })}
             </Content>
             <Footer style={{textAlign: 'center'}}>
+              {/*不实用，不用组件的方式更好*/}
+              <FormattedMessage id={'App.datePicker.title'}/>
               xiaobxia console ©2017 Created by xiaobxia
+              {locale({id: 'App.datePicker.title'})}
             </Footer>
           </Layout>
         </Layout>
@@ -166,7 +168,9 @@ class App extends Component {
   }
 }
 
-export default connect(
+export default injectIntl(connect(
   mapStateToProps,
   mapDispatchToProps
-)(App)
+)(App), {
+  withRef: true
+})

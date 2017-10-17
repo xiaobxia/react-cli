@@ -2,6 +2,7 @@
  * Created by xiaobxia on 2017/9/21.
  */
 import React, {Component} from 'react'
+import {injectIntl} from 'react-intl';
 export default class Bundle extends Component {
   constructor(props) {
     super(props)
@@ -24,7 +25,10 @@ export default class Bundle extends Component {
       })
     })
   };
+  //子模块的国际化在这做
   render() {
-    return this.state.mod ? this.props.children(this.state.mod) : null;
+    return this.state.mod ? this.props.children(injectIntl(this.state.mod), {
+      withRef: true
+    }) : null;
   }
 }

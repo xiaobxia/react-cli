@@ -66,10 +66,12 @@ class Dashboard extends Component {
   render() {
     //query在search里
     //console.log(this.props.location.search);
+    let locale = this.props.intl.formatMessage;
     return (
       <div>
         <h3 className="tittle">dashboard</h3>
         <p>插入html</p>
+        <p>国际化{locale({id: 'InjectExample.alert'})}</p>
         {/* 插入html */}
         <p dangerouslySetInnerHTML={{__html: '<p>我是一段html</p>'}}></p>
         <button onClick={this.changeChildrenData}>改变子组件</button>
