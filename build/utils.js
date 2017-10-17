@@ -37,19 +37,16 @@ exports.cssLoaders = function (options) {
     if (options.extract) {
       let opt = {
         use: loaders
-        //fallback: 'vue-style-loader',
       };
       if (process.env.NODE_ENV === 'production') {
         opt.publicPath = config.build.assetsPathInCss;
       }
       return ExtractTextPlugin.extract(opt)
     } else {
-      //return ['vue-style-loader'].concat(loaders)
       return loaders;
     }
   }
 
-  // https://vue-loader.vuejs.org/en/configurations/extract-css.html
   return {
     css: generateLoaders(),
     postcss: generateLoaders(),
@@ -61,7 +58,6 @@ exports.cssLoaders = function (options) {
   }
 }
 
-// Generate loaders for standalone style files (outside of .vue)
 exports.styleLoaders = function (options) {
   var output = []
   var loaders = exports.cssLoaders(options)
