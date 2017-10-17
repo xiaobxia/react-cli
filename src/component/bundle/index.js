@@ -25,7 +25,7 @@ export default class Bundle extends Component {
       })
     })
   };
-  //子模块的国际化在这做
+
   render() {
     return this.state.mod ? this.props.children(injectIntl(this.state.mod), {
       withRef: true

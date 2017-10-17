@@ -1,25 +1,43 @@
 @import "var";
 
-.logo {
-  float: left;
-  color: #fff;
-  font-size: 20px;
+#app{
+  position: fixed;
+  min-height: 600px;
+  width: 100%;
+  .ant-layout{
+    display: block;
+  }
+  .logo {
+    float: left;
+    color: #fff;
+    font-size: 20px;
+  }
+
+  .trigger-wrap {
+    height: 64px;
+    line-height: 64px;
+    text-align: center;
+    font-size: 20px;
+    color: #fff;
+  }
+
+  .app-sider {
+    position: absolute;
+    height: 100%;
+    overflow: hidden;
+  }
+  .app-content {
+    margin-left: 200px;
+    height: 100%;
+  }
+  .ant-layout-content{
+    min-height: 536px;
+  }
+
+  .app-header {
+
+  }
 }
 
-.trigger-wrap {
-  height: 64px;
-  line-height: 64px;
-  text-align: center;
-  font-size: 20px;
-  color: #fff;
-}
 
-.app-sider {
-  overflow: hidden;
-  //background-color: $theme-color;
-}
-
-.app-header {
-
-}
 

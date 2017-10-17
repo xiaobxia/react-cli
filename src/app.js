@@ -99,7 +99,7 @@ class App extends Component {
     let locale = this.props.intl.formatMessage;
     return (
       <Router>
-        <Layout style={{minHeight: '100vh'}}>
+        <Layout>
           <Sider
             trigger={null}
             collapsible
@@ -113,7 +113,7 @@ class App extends Component {
                 onClick={this.toggleCollapsed}
               />
             </div>
-            <Menu theme='dark' defaultSelectedKeys={['1']} mode="inline">
+            <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
               {/*组件中的命名空间*/}
               <Menu.Item key="1">
                 <Icon type="pie-chart"/>
@@ -144,7 +144,7 @@ class App extends Component {
               </Menu.Item>
             </Menu>
           </Sider>
-          <Layout>
+          <Layout className="app-content">
             <Header className="app-header">
               <div className="logo" onClick={this.titleClickHandler}>
                 xiaobxia console
@@ -152,7 +152,7 @@ class App extends Component {
             </Header>
             <Content style={{margin: '0 16px'}}>
               {routes.map(function (item, index) {
-                return (<Route exact key={index} path={item.path} component={item.component}></Route>)
+                return (<Route exact key={index} path={item.path} component={item.component}/>)
               })}
             </Content>
             <Footer style={{textAlign: 'center'}}>
