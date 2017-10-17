@@ -16,10 +16,10 @@ import {
 const {SubMenu} = Menu;
 const {Header, Content, Footer, Sider} = Layout;
 
-import {mapStateToProps, mapDispatchToProps} from './store'
-import routes from './router'
+import {mapStateToProps, mapDispatchToProps} from '../../store'
+import routes from '../../router'
 
-class App extends Component {
+class Main extends Component {
   constructor() {
     super();
     //需要绑定上下文
@@ -171,6 +171,6 @@ class App extends Component {
 export default injectIntl(connect(
   mapStateToProps,
   mapDispatchToProps
-)(App), {
+)(Main), {
   withRef: true
 })
