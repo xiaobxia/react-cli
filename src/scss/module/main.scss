@@ -1,10 +1,9 @@
-@import "var";
-
-#app{
+#app {
   position: fixed;
-  min-height: 600px;
+  height: 100%;
   width: 100%;
-  .ant-layout{
+  background-color: #ececec;
+  .ant-layout {
     display: block;
   }
   .logo {
@@ -27,17 +26,13 @@
     overflow: hidden;
   }
   .app-content {
-    margin-left: 200px;
-    height: 100%;
+    margin-left: 64px;
+    transition: all .2s;
+    &.open {
+      margin-left: 200px;
+    }
   }
-  .ant-layout-content{
-    min-height: 536px;
-  }
-
-  .app-header {
-
+  .app-route-view {
+    margin: 20px;
   }
 }
-
-
-

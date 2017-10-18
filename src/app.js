@@ -1,10 +1,16 @@
-import React, {Component} from 'react'
-import {Provider} from 'react-redux'
+import React from 'react';
+import {Provider} from 'react-redux';
+import {Route} from 'react-router-dom';
 import 'antd/dist/antd.css';
-import './scss/main.scss';
+import './scss/index.scss';
 import Main from './module/main';
-import {store} from './store'
-//国际化
+
+import routes from './router';
+import {store} from './store';
+
+/**
+ * ***********国际化************
+ **/
 import {LocaleProvider} from 'antd';
 import {addLocaleData, IntlProvider} from 'react-intl';
 import 'intl';
@@ -32,25 +38,26 @@ const appLocale = {
 //   locale: 'en-US',
 //   data: appLocaleData
 // };
-
 addLocaleData(appLocale.data);
-//TODO 最外层的作用就是绑定组件，注入store
-class App extends Component {
-  constructor() {
-    super();
-  }
-  render() {
-    return (
-      <LocaleProvider locale={appLocale.antd}>
-        <IntlProvider locale={appLocale.locale} messages={appLocale.messages}>
-          <Provider store={store}>
-            <Main/>
-          </Provider>
-        </IntlProvider>
-      </LocaleProvider>
-    )
-  }
-}
+
+
+//无状态组件
+const App = () => {
+  //TODO 最外层的作用就是绑定组件，注入store
+  return (
+    <LocaleProvider locale={appLocale.antd}>
+      <IntlProvider locale={appLocale.locale} messages={appLocale.messages}>
+        <Provider store={store}>
+          <Main>
+            {routes.map(function (item, index) {
+              return (<Route exact key={index} path={item.path} component={item.component}/>)
+            })}
+          </Main>
+        </Provider>
+      </IntlProvider>
+    </LocaleProvider>
+  )
+};
 
 //渲染根元素
 //在顶层使用Provider可以避免把store 作为 props 传递到每一个被 connet() 包装的组件

@@ -1,6 +1,5 @@
 {
-  "App.datePicker.title": "日期选择",
-  "InjectExample.alert": "我是提醒",
-  "InjectExample.button": "弹窗",
-  "InjectExample.description": "我是描述"
+  "App.name": "xiaobxia 控制台",
+  "App.menu.dashboard": "仪表盘",
+  "App.menu.test": "测试"
 }

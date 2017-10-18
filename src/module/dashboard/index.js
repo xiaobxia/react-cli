@@ -18,36 +18,6 @@ class Dashboard extends Component {
     input1Value: 0
   };
 
-  componentWillMount() {
-    console.log('将要装载组件');
-  }
-
-  componentDidMount() {
-    console.log('装载组件完成');
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    console.log('组件将要更新');
-    console.log(nextProps);
-    console.log(nextState);
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    console.log('组件更新完成');
-    console.log(prevProps);
-    console.log(prevState);
-  }
-
-  componentWillUnmount() {
-    console.log('将要卸载组件');
-  }
-
-  shouldComponentUpdate(props, newState) {
-    console.log('是否更新');
-    //返回false就不更新
-    return true;
-  }
-
   input1ValueChange = (e) => {
     this.setState({
       input1Value: e.target.value
@@ -64,6 +34,7 @@ class Dashboard extends Component {
   };
 
   render() {
+    console.log('Dashboard props', this.props);
     //query在search里
     //console.log(this.props.location.search);
     let locale = this.props.intl.formatMessage;
@@ -71,7 +42,6 @@ class Dashboard extends Component {
       <div>
         <h3 className="tittle">dashboard</h3>
         <p>插入html</p>
-        <p>国际化{locale({id: 'InjectExample.alert'})}</p>
         {/* 插入html */}
         <p dangerouslySetInnerHTML={{__html: '<p>我是一段html</p>'}}></p>
         <button onClick={this.changeChildrenData}>改变子组件</button>
@@ -86,4 +56,4 @@ class Dashboard extends Component {
   }
 }
 
-export default withRouter(Dashboard);
+export default withRouter(connect()(Dashboard));

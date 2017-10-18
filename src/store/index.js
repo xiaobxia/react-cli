@@ -34,13 +34,10 @@ let initialState = {
     count: 1,
     theme: 'light'
   }
-  // user: {
-  //   type: 'user'
-  // }
 };
 
 export let store = createStoreWithMiddleware(globReducers, initialState);
-console.log(store.getState());
+console.log('create store success', store.getState());
 
 export const mapStateToProps = state => {
   //可以在这筛选state
