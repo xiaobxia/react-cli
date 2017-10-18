@@ -50,6 +50,11 @@ class Test extends Component {
     return true;
   }
 
+  jumpToDashboard = () => {
+    //路由跳转
+    this.props.history.push('/dashboard');
+  };
+
   render() {
     console.log('Test props', this.props);
     //query在search里
@@ -71,7 +76,7 @@ class Test extends Component {
         <div>
           <p>测试路由</p>
           <div>
-            <button></button>
+            <button onClick={this.jumpToDashboard}>{locale({id: 'App.menu.dashboard'})}</button>
           </div>
         </div>
 
