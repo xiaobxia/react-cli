@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {HashRouter as Router, Link} from 'react-router-dom'
+import {HashRouter as Router, Link, Prompt} from 'react-router-dom'
 import {injectIntl} from 'react-intl';
 import {Icon, Layout} from 'antd';
 import AppMenu from './menu'

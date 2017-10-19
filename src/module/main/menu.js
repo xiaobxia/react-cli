@@ -8,6 +8,11 @@ const AppMenu = (props) => {
   let currentPathName = props.location.pathname;
   let menus = props.menus;
   let menusMap = props.menusMap;
+  props.history.listen((location, action) => {
+    console.log(location)
+  });
+  console.log(props)
+  // NavLink不优雅
   // 不能用defaultSelectedKeys
   return (
     <Menu theme="dark" selectedKeys={[menusMap[currentPathName]]} mode="inline">

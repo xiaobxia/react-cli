@@ -1,10 +1,10 @@
 import React from 'react';
 import {Provider} from 'react-redux';
-import {Route} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 import 'antd/dist/antd.css';
 import './scss/index.scss';
 import Main from './module/main';
-
+import PrivateRoute from './component/privateRoute';
 import routes from './router';
 import {store} from './store';
 
@@ -40,7 +40,6 @@ const appLocale = {
 // };
 addLocaleData(appLocale.data);
 
-
 //无状态组件
 const App = () => {
   //TODO 最外层的作用就是绑定组件，注入store
@@ -48,13 +47,18 @@ const App = () => {
     <LocaleProvider locale={appLocale.antd}>
       <IntlProvider locale={appLocale.locale} messages={appLocale.messages}>
         <Provider store={store}>
-
           <Main>
-            {routes.map(function (item, index) {
-              return (<Route exact key={index} path={item.path} component={item.component}/>)
-            })}
+            {/*排他路由*/}
+            <Switch>
+              {routes.map(function (item, index) {
+                if (item.noCheck) {
+                  return (<Route exact key={index} path={item.path} component={item.component}/>)
+                } else {
+                  return (<PrivateRoute exact key={index} path={item.path} component={item.component}/>)
+                }
+              })}
+            </Switch>
           </Main>
-
         </Provider>
       </IntlProvider>
     </LocaleProvider>

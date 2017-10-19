@@ -18,21 +18,30 @@ export default [
   {
     name: 'Home',
     path: '/home',
-    component: getComponent(Dashboard)
+    component: getComponent(Dashboard),
+    noCheck: true
   },
   {
     name: 'Dashboard Home',
     path: '/',
-    component: getComponent(Dashboard)
+    component: getComponent(Dashboard),
+    noCheck: true
   },
   {
     name: 'Dashboard',
     path: '/dashboard',
-    component: getComponent(Dashboard)
+    component: getComponent(Dashboard),
+    noCheck: true
   },
   {
     name: 'Test',
     path: '/test',
     component: getComponent(Test)
+  },
+  {
+    name: '*',
+    path: '/*',
+    component: getComponent(Dashboard),
+    noCheck: true
   }
 ];
