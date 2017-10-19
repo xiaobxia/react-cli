@@ -1,12 +1,15 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux';
 import {HashRouter as Router, Link, Prompt} from 'react-router-dom'
 import {injectIntl} from 'react-intl';
 import {Icon, Layout} from 'antd';
+import AppLogin from './login'
 import AppMenu from './menu'
 const {Header, Content, Sider} = Layout;
+import {appActions} from 'localStore/actions'
 
-import {mapStateToProps, mapDispatchToProps} from '../../store'
+// import {mapStateToProps, mapDispatchToProps} from '../../store'
 
 class Main extends Component {
   constructor() {
@@ -25,6 +28,7 @@ class Main extends Component {
   };
 
   componentWillMount() {
+    this.props.appActions.appCheckLogin();
     console.log('main will mount');
     let locale = this.props.intl.formatMessage;
     const menuProps = {
@@ -63,46 +67,57 @@ class Main extends Component {
   }
 
   render() {
+    let ifLogin = true;
     console.log('App props', this.props);
     console.log('App state', this.state);
     let locale = this.props.intl.formatMessage;
     return (
-      <Router>
-        <Layout>
-          <Sider
-            trigger={null}
-            collapsible
-            className="app-sider"
-            collapsed={this.state.collapsed}
-          >
-            <div className="trigger-wrap">
-              <Icon
-                className="trigger"
-                type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-                onClick={this.toggleCollapsed}
-              />
-            </div>
-            <AppMenu {...this.state.menuProps}/>
-          </Sider>
-          <Layout className={{'app-content': true, 'open': !this.state.collapsed}}>
-            <Header className="app-header">
-              <div className="logo">
-                {locale({id: 'App.name'})}
+      ifLogin ? (<AppLogin title={locale({id: 'App.name'})} loginName={locale({id: 'App.login'})}/>) : (
+        <Router>
+          <Layout>
+            <Sider
+              trigger={null}
+              collapsible
+              className="app-sider"
+              collapsed={this.state.collapsed}
+            >
+              <div className="trigger-wrap">
+                <Icon
+                  className="trigger"
+                  type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
+                  onClick={this.toggleCollapsed}
+                />
               </div>
-            </Header>
-            <Content className="app-route-view">
-              {this.props.children}
-            </Content>
+              <AppMenu {...this.state.menuProps}/>
+            </Sider>
+            <Layout className={{'app-content': true, 'open': !this.state.collapsed}}>
+              <Header className="app-header">
+                <div className="logo">
+                  {locale({id: 'App.name'})}
+                </div>
+              </Header>
+              <Content className="app-route-view">
+                {this.props.children}
+              </Content>
+            </Layout>
           </Layout>
-        </Layout>
-      </Router>
+        </Router>
+      )
     );
   }
 }
 
-export default injectIntl(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Main), {
+
+export const mapStateToProps = state => {
+  return {
+    app: state.app
+  }
+};
+const mapDispatchToProps = dispatch => ({
+  //action在此为引入
+  appActions: bindActionCreators(appActions, dispatch)
+});
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Main), {
   withRef: true
 });

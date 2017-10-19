@@ -2,14 +2,13 @@ import {createStore, applyMiddleware, bindActionCreators} from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import {createLogger} from 'redux-logger'
 import globReducers from './reducers';
-import * as globAction from './actions';
 
-const loggerMiddleware = createLogger();
-
-const createStoreWithMiddleware = applyMiddleware(
-  thunkMiddleware,
-  loggerMiddleware
-)(createStore);
+let middleware = [thunkMiddleware];
+// 不是发布环境就打印
+if (process.env.NODE_ENV !== 'production') {
+  middleware.push(createLogger())
+}
+const createStoreWithMiddleware = applyMiddleware(...middleware)(createStore);
 
 //TODO 一个应用只有一个state
 
@@ -29,28 +28,22 @@ const createStoreWithMiddleware = applyMiddleware(
 //     count: 1
 //   }
 // });
-let initialState = {
-  glob: {
-    count: 1,
-    theme: 'light'
-  }
-};
 
-export let store = createStoreWithMiddleware(globReducers, initialState);
+export let store = createStoreWithMiddleware(globReducers);
 console.log('create store success', store.getState());
 
-export const mapStateToProps = state => {
-  //可以在这筛选state
-  //不注入全局的可以防止全局渲染
-  return {
-    glob: state.glob
-  }
-};
+// export const mapStateToProps = state => {
+//   //可以在这筛选state
+//   //不注入全局的可以防止全局渲染
+//   return {
+//     glob: state.glob
+//   }
+// };
 
-export const mapDispatchToProps = dispatch => ({
-  //action在此为引入
-  actions: bindActionCreators(globAction, dispatch)
-});
+// export const mapDispatchToProps = dispatch => ({
+//   //action在此为引入
+//   actions: bindActionCreators(globAction, dispatch)
+// });
 
 //发出action
 //store.dispatch(addTodo('Learn about actions'))

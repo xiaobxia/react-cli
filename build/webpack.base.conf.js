@@ -28,7 +28,8 @@ module.exports = {
       //通过module引入
       'module': path.resolve(__dirname, '../src/module'),
       'localUtil': path.resolve(__dirname, '../src/util'),
-      'localComponent': path.resolve(__dirname, '../src/component')
+      'localComponent': path.resolve(__dirname, '../src/component'),
+      'localStore': path.resolve(__dirname, '../src/store')
     }
   },
   plugins: [

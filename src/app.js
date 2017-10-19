@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import {Provider} from 'react-redux';
 import {Route, Switch} from 'react-router-dom';
 import 'antd/dist/antd.css';
@@ -11,7 +12,7 @@ import {store} from './store';
 /**
  * ***********国际化************
  **/
-import {LocaleProvider} from 'antd';
+import {LocaleProvider, Modal} from 'antd';
 import {addLocaleData, IntlProvider} from 'react-intl';
 import 'intl';
 import 'intl/locale-data/jsonp/en.js';
@@ -39,6 +40,53 @@ const appLocale = {
 //   data: appLocaleData
 // };
 addLocaleData(appLocale.data);
+console.log('app.js init');
+axios.interceptors.response.use(function (response) {
+  // Do something with response data
+  let data = response.data;
+  if (response.status === 0) { //ignore
+    console.warn('[HTTP status=0]');
+    return response;
+  } else { //200
+    if (data.success === false) {
+      console.info('[HTTP ERROR]', response);
+      switch (data.errorCode) {
+        case 'USER_NEED_LOGIN':
+        case 'USER_SESSION_TIMEOUT':
+          //MessageBox.alert('you need login.');
+          break;
+        // default:
+        //   if (!request.headers.has('ignoreGlobalDialog')) {
+        //     //const msg = `[${data.errorCode}]${data.errorMessage}`;
+        //     const msg = `${data.errorMessage}`;
+        //     MessageBox.alert(msg, 'Error', {type: 'error'});
+        //   }
+        //   break;
+      }
+      response.ok = false;
+      // next(request.respondWith(data));
+      //throw data; // end http request, hack it
+    }
+    return response;
+  }
+}, function (error) {
+  console.log('in error');
+  let response = error.response;
+  console.info('[HTTP ERROR]', response);
+  const {errorCode, errorMessage} = response.data || {};
+  let errorMsg = 'Server Internal Error. Please contact Administrator!';
+  if (errorMessage) {
+    errorMsg = `${errorMessage}`;
+  }
+  console.log(errorCode, errorMsg);
+  const msg = `${response.status} ${response.statusText}; \r\n${errorMsg}`;
+  Modal.error({
+    title: 'This is an error message',
+    content: msg
+  });
+  // Do something with response error
+  return Promise.reject(error);
+});
 
 //无状态组件
 const App = () => {

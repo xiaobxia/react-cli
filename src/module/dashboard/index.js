@@ -5,6 +5,7 @@ import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
+import http from 'localUtil/httpUtil'
 
 import HelloWord from 'localComponent/helloWorld'
 
@@ -32,6 +33,10 @@ class Dashboard extends Component {
   childrenChange = (newValue) => {
     console.log(newValue)
   };
+
+  componentWillMount() {
+    http.get('sys/isLogin');
+  }
 
   render() {
     console.log('Dashboard props', this.props);
