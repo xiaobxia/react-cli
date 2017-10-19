@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {Link, withRouter} from 'react-router-dom'
+import {HashRouter as Router, Link} from 'react-router-dom'
 import {injectIntl} from 'react-intl';
-import {Menu, Icon, Layout} from 'antd';
-const {SubMenu} = Menu;
+import {Icon, Layout} from 'antd';
+import AppMenu from './menu'
 const {Header, Content, Sider} = Layout;
 
 import {mapStateToProps, mapDispatchToProps} from '../../store'
@@ -14,7 +14,8 @@ class Main extends Component {
   }
 
   state = {
-    collapsed: false
+    collapsed: false,
+    menuProps: {}
   };
 
   toggleCollapsed = () => {
@@ -22,6 +23,37 @@ class Main extends Component {
       collapsed: !this.state.collapsed
     });
   };
+
+  componentWillMount() {
+    console.log('main will mount');
+    let locale = this.props.intl.formatMessage;
+    const menuProps = {
+      menus: [
+        {
+          path: '/dashboard',
+          icon: 'desktop',
+          name: locale({id: 'App.menu.dashboard'}),
+          key: 1
+        },
+        {
+          path: '/test',
+          icon: 'pushpin',
+          name: locale({id: 'App.menu.test'}),
+          key: 2
+        }
+      ],
+      menusMap: {
+        '/': '1',
+        '/home': '1',
+        '/dashboard': '1',
+        '/test': '2'
+      }
+    };
+    this.setState({
+      menuProps
+    });
+  }
+
   //生命周期mount
   componentDidMount() {
   }
@@ -32,62 +64,38 @@ class Main extends Component {
 
   render() {
     console.log('App props', this.props);
+    console.log('App state', this.state);
     let locale = this.props.intl.formatMessage;
-    let menu = {
-      '/dashboard': '1',
-
-    };
-    let defaultSelectedKey = ;
     return (
-      <Layout>
-        <Sider
-          trigger={null}
-          collapsible
-          className="app-sider"
-          collapsed={this.state.collapsed}
-        >
-          <div className="trigger-wrap">
-            <Icon
-              className="trigger"
-              type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-              onClick={this.toggleCollapsed}
-            />
-          </div>
-          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-            {/*组件中的命名空间*/}
-            <Menu.Item key="1">
-              <Link to="/dashboard">
-                <Icon type="desktop"/>
-                <span>{locale({id: 'App.menu.dashboard'})}</span>
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="2">
-              <Link to="/test">
-                <Icon type="pushpin"/>
-                <span>{locale({id: 'App.menu.test'})}</span>
-              </Link>
-            </Menu.Item>
-            <SubMenu
-              key="sub1"
-              title={<span><Icon type="user"/><span>User</span></span>}
-            >
-              <Menu.Item key="3">Tom</Menu.Item>
-              <Menu.Item key="4">Bill</Menu.Item>
-              <Menu.Item key="5">Alex</Menu.Item>
-            </SubMenu>
-          </Menu>
-        </Sider>
-        <Layout className={{'app-content': true, 'open': !this.state.collapsed}}>
-          <Header className="app-header">
-            <div className="logo">
-              {locale({id: 'App.name'})}
+      <Router>
+        <Layout>
+          <Sider
+            trigger={null}
+            collapsible
+            className="app-sider"
+            collapsed={this.state.collapsed}
+          >
+            <div className="trigger-wrap">
+              <Icon
+                className="trigger"
+                type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
+                onClick={this.toggleCollapsed}
+              />
             </div>
-          </Header>
-          <Content className="app-route-view">
-            {this.props.children}
-          </Content>
+            <AppMenu {...this.state.menuProps}/>
+          </Sider>
+          <Layout className={{'app-content': true, 'open': !this.state.collapsed}}>
+            <Header className="app-header">
+              <div className="logo">
+                {locale({id: 'App.name'})}
+              </div>
+            </Header>
+            <Content className="app-route-view">
+              {this.props.children}
+            </Content>
+          </Layout>
         </Layout>
-      </Layout>
+      </Router>
     );
   }
 }
@@ -95,9 +103,6 @@ class Main extends Component {
 export default injectIntl(connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(Main)), {
+)(Main), {
   withRef: true
 });
-// export default injectIntl(Main, {
-//   withRef: true
-// });

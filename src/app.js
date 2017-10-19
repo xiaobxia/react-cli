@@ -1,6 +1,6 @@
 import React from 'react';
 import {Provider} from 'react-redux';
-import {HashRouter as Router, Route} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import 'antd/dist/antd.css';
 import './scss/index.scss';
 import Main from './module/main';
@@ -48,13 +48,13 @@ const App = () => {
     <LocaleProvider locale={appLocale.antd}>
       <IntlProvider locale={appLocale.locale} messages={appLocale.messages}>
         <Provider store={store}>
-          <Router>
-            <Main>
-              {routes.map(function (item, index) {
-                return (<Route exact key={index} path={item.path} component={item.component}/>)
-              })}
-            </Main>
-          </Router>
+
+          <Main>
+            {routes.map(function (item, index) {
+              return (<Route exact key={index} path={item.path} component={item.component}/>)
+            })}
+          </Main>
+
         </Provider>
       </IntlProvider>
     </LocaleProvider>
