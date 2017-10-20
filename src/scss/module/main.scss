@@ -4,7 +4,7 @@
   width: 100%;
   background-color: #ececec;
 
-  .login-wrap{
+  .login-wrap {
     position: absolute;
     left: 0;
     bottom: 0;
@@ -36,6 +36,16 @@
     position: absolute;
     height: 100%;
     overflow: hidden;
+  }
+  .user-avatar{
+    background-color: #87d068;
+    vertical-align: middle;
+    margin-right: .5em;
+  }
+  .login-user-menu {
+    color: #fff;
+    float: right;
+    cursor: pointer;
   }
   .app-content {
     margin-left: 64px;

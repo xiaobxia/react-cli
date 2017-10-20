@@ -2,5 +2,6 @@
   "App.name": "xiaobxia 控制台",
   "App.menu.dashboard": "仪表盘",
   "App.menu.test": "测试",
-  "App.login": "登录"
+  "App.login": "登录",
+  "App.logout": "注销"
 }

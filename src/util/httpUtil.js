@@ -8,10 +8,20 @@ function makeUrl(url) {
     return `${basePath}${url}`;
   }
 }
-
+function addTimestamp(url) {
+  let hook = '';
+  let index = url.indexOf('?');
+  if (index === -1) {
+    hook = '?';
+  } else {
+    hook = index + 1 === url.length ? '' : '&';
+  }
+  return `${url}${hook}timestamp=${new Date().getTime()}`;
+}
 const Http = {
   get (url, options) {
-    return axios.get(makeUrl(url), options).then(data => data.data.result);
+    let urlWithTime = addTimestamp(url);
+    return axios.get(makeUrl(urlWithTime), options).then(data => data.data.result);
   },
 
   getRaw (url, options) {

@@ -5,11 +5,7 @@ import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-
-//无状态组件，性能会更好，没有state，也没有生命周期
-const HelloMessage = (props) => {
-  return (<div>Hello {props.name}</div>);
-};
+import HelloWord from 'localComponent/helloWorld'
 
 class Test extends Component {
   constructor(props) {
@@ -67,7 +63,7 @@ class Test extends Component {
         <h3>TEST模块</h3>
         <div>
           <p>测试组件</p>
-          <HelloMessage name="xiaobxia"/>
+          <HelloWord />
         </div>
         <div>
           <p>测试国际化</p>
@@ -79,7 +75,9 @@ class Test extends Component {
             <button onClick={this.jumpToDashboard}>{locale({id: 'App.menu.dashboard'})}</button>
           </div>
         </div>
-
+        <div>
+          <p dangerouslySetInnerHTML={{__html: '<p>我是一段原生html</p>'}}/>
+        </div>
         {this.state.type === 1 ? (<p>1</p>) : (<p>2</p>)}
       </div>
     );

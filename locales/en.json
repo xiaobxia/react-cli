@@ -2,5 +2,6 @@
   "App.name": "xiaobxia console",
   "App.menu.dashboard": "dashboard",
   "App.menu.test": "test",
-  "App.login": "Log in"
+  "App.login": "Log in",
+  "App.logout": "Log out"
 }

@@ -11,7 +11,6 @@ const AppMenu = (props) => {
   props.history.listen((location, action) => {
     console.log(location)
   });
-  console.log(props)
   // NavLink不优雅
   // 不能用defaultSelectedKeys
   return (
