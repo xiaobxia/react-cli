@@ -3,5 +3,6 @@
   "App.menu.dashboard": "dashboard",
   "App.menu.test": "test",
   "App.login": "Log in",
-  "App.logout": "Log out"
+  "App.logout": "Log out",
+  "App.hello": "hello"
 }

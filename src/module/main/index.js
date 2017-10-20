@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
 import {HashRouter as Router, Link, Prompt} from 'react-router-dom'
-import {Icon, Layout} from 'antd';
+import {Icon, Layout, Spin} from 'antd';
 import {injectIntl} from 'react-intl';
 import AppLogin from './login'
 import AppMenu from './menu'
@@ -16,14 +16,11 @@ class Main extends Component {
   }
 
   state = {
-    collapsed: false,
     menuProps: {}
   };
 
   toggleCollapsed = () => {
-    this.setState({
-      collapsed: !this.state.collapsed
-    });
+    this.props.appActions.appToggleCollapsed();
   };
 
   componentWillMount() {
@@ -72,8 +69,12 @@ class Main extends Component {
     let props = this.props;
     let store = this.props.app;
     //防止页面一闪
-    if (store.isChecking) {
-      return null;
+    if (store.isGlobLoading) {
+      return (
+        <div className="glob-loading-wrap">
+          <Spin size="large" />
+        </div>
+      );
     }
     let ifLogin = store.loginUser === null;
     if (ifLogin) {
@@ -87,18 +88,18 @@ class Main extends Component {
               trigger={null}
               collapsible
               className="app-sider"
-              collapsed={state.collapsed}
+              collapsed={store.collapsed}
             >
               <div className="trigger-wrap">
                 <Icon
                   className="trigger"
-                  type={state.collapsed ? 'menu-unfold' : 'menu-fold'}
+                  type={store.collapsed ? 'menu-unfold' : 'menu-fold'}
                   onClick={this.toggleCollapsed}
                 />
               </div>
               <AppMenu {...state.menuProps}/>
             </Sider>
-            <Layout className={{'app-content': true, 'open': !state.collapsed}}>
+            <Layout className={{'app-content': true, 'open': !store.collapsed}}>
               <Header className="app-header">
                 <AppHeader userName={store.loginUser.userName} onLogout={props.appActions.appLogout}/>
               </Header>
@@ -114,7 +115,7 @@ class Main extends Component {
 }
 
 
-export const mapStateToProps = state => {
+const mapStateToProps = state => {
   return {
     app: state.app
   }

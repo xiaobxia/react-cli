@@ -5,13 +5,23 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 
+//路由自动包裹intl
 class Dashboard extends Component {
   render() {
     let locale = this.props.intl.formatMessage;
     return (
-      <div></div>
+      <h2>
+        <span>{locale({id: 'App.hello'})}, </span>
+        <span>{this.props.app.loginUser.userName}</span>
+      </h2>
     );
   }
 }
 
-export default withRouter(connect()(Dashboard));
+const mapStateToProps = state => {
+  return {
+    app: state.app
+  }
+};
+
+export default withRouter(connect(mapStateToProps)(Dashboard));

@@ -56,8 +56,6 @@ class Test extends Component {
     //query在search里
     let locale = this.props.intl.formatMessage;
     console.log(this.props.location.search);
-    console.log(this.props.user);
-    console.log(this.props.glob);
     return (
       <div>
         <h3>TEST模块</h3>
@@ -84,22 +82,10 @@ class Test extends Component {
   }
 }
 
-export const mapStateToProps = state => {
-  //可以在这筛选state
-  //不注入全局的可以防止全局渲染
-  return {
-    user: state.user,
-    glob: state.glob
-  }
-};
-
 // export const mapDispatchToProps = dispatch => ({
 //   //action在此为引入
 //   actions: bindActionCreators(globAction, dispatch)
 // });
 
 
-export default connect(
-  mapStateToProps
-  // mapDispatchToProps
-)(withRouter(Test));
+export default connect()(withRouter(Test));
