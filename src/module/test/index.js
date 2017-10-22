@@ -5,6 +5,7 @@ import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
+import qs from 'qs'
 import HelloWord from 'localComponent/helloWorld'
 
 class Test extends Component {
@@ -17,45 +18,48 @@ class Test extends Component {
   };
 
   componentWillMount() {
-    console.log('将要装载组件');
+    console.log('将要装载Test');
   }
 
   componentDidMount() {
-    console.log('装载组件完成');
+    console.log('装载Test完成');
   }
 
   componentWillUpdate(nextProps, nextState) {
-    console.log('组件将要更新');
+    console.log('Test将要更新');
     console.log(nextProps);
     console.log(nextState);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('组件更新完成');
+    console.log('Test更新完成');
     console.log(prevProps);
     console.log(prevState);
   }
 
   componentWillUnmount() {
-    console.log('将要卸载组件');
+    console.log('将要卸载Test');
   }
 
   shouldComponentUpdate(props, newState) {
-    console.log('是否更新');
+    console.log('是否更新Test');
     //返回false就不更新
     return true;
   }
 
   jumpToDashboard = () => {
     //路由跳转
-    this.props.history.push('/dashboard');
+    let query = qs.stringify({
+      name: 'xiaobxia'
+    });
+    this.props.history.push('/dashboard?' + query);
   };
 
   render() {
     console.log('Test props', this.props);
-    //query在search里
     let locale = this.props.intl.formatMessage;
-    console.log(this.props.location.search);
+    //query在search里
+    console.log('url query', qs.parse(this.props.location.search.slice(1)));
     return (
       <div>
         <h3>TEST模块</h3>

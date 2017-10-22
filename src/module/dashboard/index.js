@@ -7,6 +7,10 @@ import {withRouter} from 'react-router-dom'
 
 //路由自动包裹intl
 class Dashboard extends Component {
+  //生命周期mount
+  componentDidMount() {
+    console.log('Dashboard mount');
+  }
   render() {
     let locale = this.props.intl.formatMessage;
     return (
