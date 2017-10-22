@@ -41,6 +41,8 @@ const appLocale = {
 // };
 addLocaleData(appLocale.data);
 console.log('app.js init');
+
+//http拦截
 axios.interceptors.response.use(function (response) {
   // Do something with response data
   let data = response.data;
