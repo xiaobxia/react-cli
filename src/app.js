@@ -5,7 +5,7 @@ import {Route, Switch} from 'react-router-dom';
 import 'antd/dist/antd.css';
 import './scss/index.scss';
 import Main from './module/main';
-import PrivateRoute from './component/privateRoute';
+import NoMatch from 'localComponent/noMatch'
 import routes from './router';
 import {store} from './store';
 
@@ -101,12 +101,9 @@ const App = () => {
             {/*排他路由*/}
             <Switch>
               {routes.map(function (item, index) {
-                if (item.noCheck) {
-                  return (<Route exact key={index} path={item.path} component={item.component}/>)
-                } else {
-                  return (<PrivateRoute exact key={index} path={item.path} component={item.component}/>)
-                }
+                return (<Route exact key={index} path={item.path} component={item.component}/>)
               })}
+              <Route component={NoMatch}/>
             </Switch>
           </Main>
         </Provider>

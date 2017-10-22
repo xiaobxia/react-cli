@@ -4,5 +4,6 @@
   "App.menu.test": "test",
   "App.login": "Log in",
   "App.logout": "Log out",
-  "App.hello": "hello"
+  "App.hello": "hello",
+  "App.noMatch": "not find"
 }

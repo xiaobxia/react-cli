@@ -37,11 +37,5 @@ export default [
     name: 'Test',
     path: '/test',
     component: getComponent(Test)
-  },
-  {
-    name: '*',
-    path: '/*',
-    component: getComponent(Dashboard),
-    noCheck: true
   }
 ];
