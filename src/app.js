@@ -39,6 +39,8 @@ const appLocale = {
 //   locale: 'en-US',
 //   data: appLocaleData
 // };
+
+
 addLocaleData(appLocale.data);
 console.log('app.js init');
 
