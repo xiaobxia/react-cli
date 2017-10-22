@@ -14,7 +14,7 @@ class Test extends Component {
   }
 
   state = {
-    type: 'add'
+    type: 1
   };
 
   componentWillMount() {
@@ -78,9 +78,17 @@ class Test extends Component {
           </div>
         </div>
         <div>
-          <p dangerouslySetInnerHTML={{__html: '<p>我是一段原生html</p>'}}/>
+          <p>原生html</p>
+          <div>
+            <p dangerouslySetInnerHTML={{__html: '<p>我是一段原生html</p>'}}/>
+          </div>
         </div>
-        {this.state.type === 1 ? (<p>1</p>) : (<p>2</p>)}
+        <div>
+          <p>条件渲染</p>
+          <div>
+            {this.state.type === 1 ? (<p>1</p>) : (<p>2</p>)}
+          </div>
+        </div>
       </div>
     );
   }
