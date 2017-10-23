@@ -3,6 +3,7 @@
  */
 import React, {Component} from 'react'
 import {injectIntl} from 'react-intl';
+
 export default class Bundle extends Component {
   constructor(props) {
     super(props)

@@ -29,7 +29,8 @@ module.exports = {
       'module': path.resolve(__dirname, '../src/module'),
       'localUtil': path.resolve(__dirname, '../src/util'),
       'localComponent': path.resolve(__dirname, '../src/component'),
-      'localStore': path.resolve(__dirname, '../src/store')
+      'localStore': path.resolve(__dirname, '../src/store'),
+      'baseComponent': path.resolve(__dirname, '../src/component/baseComponent')
     }
   },
   plugins: [

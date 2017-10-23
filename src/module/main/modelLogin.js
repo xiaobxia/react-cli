@@ -1,7 +1,7 @@
 /**
  * Created by xiaobxia on 2017/10/23.
  */
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom'
 import {injectIntl} from 'react-intl'
 import {Modal, Button, Form, Input, Icon} from 'antd';

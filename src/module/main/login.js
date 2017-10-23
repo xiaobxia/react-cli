@@ -6,11 +6,6 @@ import {Card, Icon, Button, Form, Input} from 'antd';
 import {injectIntl} from 'react-intl';
 const FormItem = Form.Item;
 class AppLogin extends Component {
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return this.props !== nextProps;
-  }
-
   loginHandler = () => {
     const {
       form: {
