@@ -32,7 +32,9 @@ class PrivateRoute extends Component {
         if (this.state.hasPath) {
           return (<RouteComponent {...props}/>);
         } else {
-          return null;
+          return (<Redirect to={{
+            pathname: '/404'
+          }}/>);
         }
       }}/>
     );
