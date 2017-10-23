@@ -22,7 +22,7 @@ class AppLogin extends Component {
   };
 
   render() {
-    console.log('Login render');
+    console.log('%cLogin render', 'background: #222; color: #bada55');
     // 渲染多次的原因是，自动填充了两次
     const {
       form: {

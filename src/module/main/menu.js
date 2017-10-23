@@ -5,6 +5,7 @@ import React from 'react'
 import {Link, withRouter} from 'react-router-dom'
 import {Menu, Icon} from 'antd';
 const AppMenu = (props) => {
+  console.log('%cAppMenu render', 'background: #222; color: #bada55');
   let currentPathName = props.location.pathname;
   let menus = props.menus;
   let menusMap = props.menusMap;

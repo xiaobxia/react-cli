@@ -56,6 +56,7 @@ class Test extends Component {
   };
 
   render() {
+    console.log('%cTest render', 'background: #222; color: #bada55');
     console.log('Test props', this.props);
     let locale = this.props.intl.formatMessage;
     //query在search里

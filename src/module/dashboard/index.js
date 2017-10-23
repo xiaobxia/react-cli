@@ -12,6 +12,7 @@ class Dashboard extends Component {
     console.log('Dashboard mount');
   }
   render() {
+    console.log('%cDashboard render', 'background: #222; color: #bada55');
     let locale = this.props.intl.formatMessage;
     return (
       <h2>

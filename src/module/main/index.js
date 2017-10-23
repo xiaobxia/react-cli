@@ -65,6 +65,7 @@ class Main extends Component {
 
   // 这一层在vue中是看不到的，vue帮你做了
   render() {
+    console.log('%cApp render', 'background: #222; color: #bada55');
     // console.log('App props', this.props);
     // console.log('App state', this.state);
     let props = this.props;

@@ -16,6 +16,7 @@ class AppHeader extends Component {
   };
 
   render() {
+    console.log('%cHeader render', 'background: #222; color: #bada55');
     let locale = this.props.intl.formatMessage;
     const loginUserMenu = (
       <Menu style={{textAlign: 'center'}}>

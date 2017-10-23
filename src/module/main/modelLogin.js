@@ -35,7 +35,7 @@ class ModelLogin extends Component {
   };
 
   render() {
-    console.log('ModelLogin render');
+    console.log('%cModelLogin render', 'background: #222; color: #bada55');
     const {
       form: {
         getFieldDecorator
