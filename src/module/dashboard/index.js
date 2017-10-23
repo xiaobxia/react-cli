@@ -4,6 +4,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
+import {consoleRender} from 'localUtil/consoleLog'
 
 //路由自动包裹intl
 class Dashboard extends Component {
@@ -12,7 +13,7 @@ class Dashboard extends Component {
     console.log('Dashboard mount');
   }
   render() {
-    console.log('%cDashboard render', 'background: #222; color: #bada55');
+    consoleRender('Dashboard render');
     let locale = this.props.intl.formatMessage;
     return (
       <h2>

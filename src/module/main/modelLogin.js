@@ -5,6 +5,7 @@ import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom'
 import {injectIntl} from 'react-intl'
 import {Modal, Button, Form, Input, Icon} from 'antd';
+import {consoleRender} from 'localUtil/consoleLog'
 const FormItem = Form.Item;
 
 class ModelLogin extends Component {
@@ -35,7 +36,7 @@ class ModelLogin extends Component {
   };
 
   render() {
-    console.log('%cModelLogin render', 'background: #222; color: #bada55');
+    consoleRender('ModelLogin render');
     const {
       form: {
         getFieldDecorator

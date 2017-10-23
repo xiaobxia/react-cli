@@ -7,6 +7,7 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import qs from 'qs'
 import HelloWord from 'localComponent/helloWorld'
+import {consoleRender} from 'localUtil/consoleLog'
 
 class Test extends Component {
   constructor(props) {
@@ -56,7 +57,7 @@ class Test extends Component {
   };
 
   render() {
-    console.log('%cTest render', 'background: #222; color: #bada55');
+    consoleRender('Test render');
     console.log('Test props', this.props);
     let locale = this.props.intl.formatMessage;
     //query在search里

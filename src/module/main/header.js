@@ -4,6 +4,7 @@
 import React, {Component} from 'react'
 import {Menu, Icon, Dropdown, Avatar} from 'antd';
 import {injectIntl} from 'react-intl';
+import {consoleRender} from 'localUtil/consoleLog'
 class AppHeader extends Component {
   state = {
     loginUserMenuOpen: false
@@ -38,7 +39,7 @@ class AppHeader extends Component {
   }
 
   render() {
-    console.log('%cHeader render', 'background: #222; color: #bada55');
+    consoleRender('Header render');
     let locale = this.props.intl.formatMessage;
     const loginUserMenu = (
       <Menu style={{textAlign: 'center'}}>

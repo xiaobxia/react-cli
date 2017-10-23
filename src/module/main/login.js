@@ -4,6 +4,7 @@
 import React, {Component} from 'react'
 import {Card, Icon, Button, Form, Input} from 'antd';
 import {injectIntl} from 'react-intl';
+import {consoleRender} from 'localUtil/consoleLog'
 const FormItem = Form.Item;
 class AppLogin extends Component {
   loginHandler = () => {
@@ -17,7 +18,7 @@ class AppLogin extends Component {
   };
 
   render() {
-    console.log('%cLogin render', 'background: #222; color: #bada55');
+    consoleRender('Login render');
     // 渲染多次的原因是，自动填充了两次
     const {
       form: {
