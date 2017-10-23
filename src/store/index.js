@@ -28,9 +28,11 @@ const createStoreWithMiddleware = applyMiddleware(...middleware)(createStore);
 //     count: 1
 //   }
 // });
-
-export let store = createStoreWithMiddleware(globReducers);
+const store = createStoreWithMiddleware(globReducers);
 console.log('create store success', store.getState());
+
+export default store;
+
 
 // export const mapStateToProps = state => {
 //   //可以在这筛选state

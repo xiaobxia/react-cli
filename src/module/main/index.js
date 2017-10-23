@@ -7,6 +7,7 @@ import {injectIntl} from 'react-intl';
 import AppLogin from './login'
 import AppMenu from './menu'
 import AppHeader from './header'
+import ModelLogin from './modelLogin'
 const {Header, Content, Sider} = Layout;
 import {appActions} from 'localStore/actions'
 
@@ -72,7 +73,7 @@ class Main extends Component {
     if (store.isGlobLoading) {
       return (
         <div className="glob-loading-wrap">
-          <Spin size="large" />
+          <Spin size="large"/>
         </div>
       );
     }
@@ -106,6 +107,11 @@ class Main extends Component {
               <Content className="app-route-view">
                 {props.children}
               </Content>
+              <ModelLogin
+                onLogin={props.appActions.appInsetLogin}
+                onHide={props.appActions.appHideGlobLogin}
+                visible={store.showGlobLogin}
+              />
             </Layout>
           </Layout>
         </Router>
@@ -125,6 +131,4 @@ const mapDispatchToProps = dispatch => ({
   appActions: bindActionCreators(appActions, dispatch)
 });
 
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Main), {
-  withRef: true
-});
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Main));

@@ -5,5 +5,5 @@
   "App.login": "Log in",
   "App.logout": "Log out",
   "App.hello": "hello",
-  "App.noMatch": "not find"
+  "App.noMatch": "Sorry! The page you are visiting does not exist."
 }

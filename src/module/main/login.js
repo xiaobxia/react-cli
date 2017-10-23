@@ -11,20 +11,25 @@ class AppLogin extends Component {
     return this.props !== nextProps;
   }
 
-  render() {
-    // console.log('Login render');
-    // 渲染多次的原因是，自动填充了两次
+  loginHandler = () => {
     const {
       form: {
-        getFieldDecorator,
         getFieldsValue
       },
       onLogin
     } = this.props;
+    onLogin(getFieldsValue());
+  };
+
+  render() {
+    console.log('Login render');
+    // 渲染多次的原因是，自动填充了两次
+    const {
+      form: {
+        getFieldDecorator
+      }
+    } = this.props;
     const locale = this.props.intl.formatMessage;
-    const loginHandler = () => {
-      onLogin(getFieldsValue());
-    };
     return (
       <Card title={locale({id: 'App.name'})} bordered={false} className="login-wrap">
         <Form className="login-form">
@@ -44,7 +49,7 @@ class AppLogin extends Component {
           </FormItem>
           <FormItem style={{marginTop: '60px'}}>
             <Button style={{width: '100%'}} type="primary" htmlType="submit" className="login-form-button"
-                    onClick={loginHandler}>
+                    onClick={this.loginHandler}>
               {locale({id: 'App.login'})}
             </Button>
           </FormItem>
@@ -53,6 +58,4 @@ class AppLogin extends Component {
     );
   }
 }
-export default Form.create()(injectIntl(AppLogin, {
-  withRef: true
-}));
+export default Form.create()(injectIntl(AppLogin));

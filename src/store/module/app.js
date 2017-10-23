@@ -5,9 +5,13 @@ import http from 'localUtil/httpUtil'
 const APP_TOGGLE_COLLAPSED = 'APP_TOGGLE_COLLAPSED';
 const APP_LOGIN = 'APP_LOGIN';
 const APP_LOGIN_SUC = 'APP_LOGIN_SUC';
+const APP_INSET_LOGIN = 'APP_INSET_LOGIN';
+const APP_INSET_LOGIN_SUC = 'APP_INSET_LOGIN_SUC';
 const APP_CHECK_LOGIN = 'APP_CHECK_LOGIN';
 const APP_CHECK_LOGIN_SUC = 'APP_CHECK_LOGIN_SUC';
 const APP_LOGOUT_SUC = 'APP_LOGOUT_SUC';
+const APP_SHOW_GLOB_LOGIN = 'APP_SHOW_GLOB_LOGIN';
+const APP_HIDE_GLOB_LOGIN = 'APP_HIDE_GLOB_LOGIN';
 
 export const appActions = {
   appToggleCollapsed() {
@@ -25,7 +29,15 @@ export const appActions = {
     return (dispatch, getState) => {
       dispatch({type: APP_LOGIN});
       return http.post('sys/login', {userCode: user, pwd: password}).then((data) => {
-        dispatch({type: APP_CHECK_LOGIN_SUC, loginUser: data});
+        dispatch({type: APP_LOGIN_SUC, loginUser: data});
+      });
+    };
+  },
+  appInsetLogin({user, password}) {
+    return (dispatch, getState) => {
+      //内部登录，减少状态变化
+      return http.post('sys/login', {userCode: user, pwd: password}).then((data) => {
+        dispatch({type: APP_INSET_LOGIN_SUC, loginUser: data});
       });
     };
   },
@@ -35,6 +47,11 @@ export const appActions = {
         dispatch({type: APP_LOGOUT_SUC});
       });
     };
+  },
+  appHideGlobLogin() {
+    return {
+      type: 'APP_HIDE_GLOB_LOGIN'
+    }
   }
 };
 
@@ -46,6 +63,7 @@ export const appActions = {
 const appStore = {
   loginUser: null,
   isGlobLoading: false,
+  showGlobLogin: false,
   collapsed: localStorage.getItem('collapsed') === 'true'
 };
 export const appReducers = (state = appStore, action) => {
@@ -86,8 +104,25 @@ export const appReducers = (state = appStore, action) => {
       localStorage.setItem('userCode', action.loginUser.userCode);
       return data;
     }
+    // case APP_INSET_LOGIN: {
+    //   data.loginUser = null;
+    //   return data;
+    // }
+    case APP_INSET_LOGIN_SUC: {
+      data.loginUser = action.loginUser;
+      localStorage.setItem('userCode', action.loginUser.userCode);
+      return data;
+    }
     case APP_LOGOUT_SUC: {
       data.loginUser = null;
+      return data;
+    }
+    case APP_SHOW_GLOB_LOGIN: {
+      data.showGlobLogin = true;
+      return data;
+    }
+    case APP_HIDE_GLOB_LOGIN: {
+      data.showGlobLogin = false;
       return data;
     }
     //TODO 需要有default返回返回旧的state

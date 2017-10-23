@@ -27,8 +27,6 @@ export default class Bundle extends Component {
   };
 
   render() {
-    return this.state.mod ? this.props.children(injectIntl(this.state.mod), {
-      withRef: true
-    }) : null;
+    return this.state.mod ? this.props.children(injectIntl(this.state.mod)) : null;
   }
 }

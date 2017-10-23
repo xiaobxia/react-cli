@@ -7,7 +7,7 @@ import './scss/index.scss';
 import Main from './module/main';
 import NoMatch from 'localComponent/noMatch'
 import routes from './router';
-import {store} from './store';
+import store from './store';
 
 /**
  * ***********国际化************
@@ -57,7 +57,7 @@ axios.interceptors.response.use(function (response) {
       switch (data.errorCode) {
         case 'USER_NEED_LOGIN':
         case 'USER_SESSION_TIMEOUT':
-          //MessageBox.alert('you need login.');
+          store.dispatch({type: 'APP_SHOW_GLOB_LOGIN'});
           break;
         // default:
         //   if (!request.headers.has('ignoreGlobalDialog')) {
@@ -105,6 +105,7 @@ const App = () => {
               {routes.map(function (item, index) {
                 return (<Route exact key={index} path={item.path} component={item.component}/>)
               })}
+              {/*404的路由，和express的路由很像*/}
               <Route component={NoMatch}/>
             </Switch>
           </Main>

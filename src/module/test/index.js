@@ -59,32 +59,34 @@ class Test extends Component {
     console.log('Test props', this.props);
     let locale = this.props.intl.formatMessage;
     //query在search里
-    console.log('url query', qs.parse(this.props.location.search.slice(1)));
+    let query = qs.parse(this.props.location.search.slice(1));
+    console.log('url query', query);
     return (
-      <div>
-        <h3>TEST模块</h3>
-        <div>
-          <p>测试组件</p>
+      <div className="module-test">
+        <h1>TEST模块</h1>
+        <div className="test-block">
+          <h3>测试组件</h3>
           <HelloWord />
         </div>
-        <div>
-          <p>测试国际化</p>
+        <div className="test-block">
+          <h3>测试国际化</h3>
           <p>app的名字是: {locale({id: 'App.name'})}</p>
         </div>
-        <div>
-          <p>测试路由</p>
+        <div className="test-block">
+          <h3>测试路由</h3>
           <div>
+            <p>当前路由的query：{JSON.stringify(query)}</p>
             <button onClick={this.jumpToDashboard}>{locale({id: 'App.menu.dashboard'})}</button>
           </div>
         </div>
-        <div>
-          <p>原生html</p>
+        <div className="test-block">
+          <h3>原生html</h3>
           <div>
             <p dangerouslySetInnerHTML={{__html: '<p>我是一段原生html</p>'}}/>
           </div>
         </div>
-        <div>
-          <p>条件渲染</p>
+        <div className="test-block">
+          <h3>条件渲染</h3>
           <div>
             {this.state.type === 1 ? (<p>1</p>) : (<p>2</p>)}
           </div>

@@ -39,6 +39,4 @@ class AppHeader extends Component {
   }
 }
 
-export default injectIntl(AppHeader, {
-  withRef: true
-});
+export default injectIntl(AppHeader);

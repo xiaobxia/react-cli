@@ -5,5 +5,5 @@
   "App.login": "登录",
   "App.logout": "注销",
   "App.hello": "你好",
-  "App.noMatch": "未找到"
+  "App.noMatch": "抱歉！您所访问的页面不存在。"
 }
