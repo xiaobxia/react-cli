@@ -25,7 +25,8 @@ const Http = {
   },
 
   getRaw (url, options) {
-    return axios.get(makeUrl(url), options);
+    let urlWithTime = addTimestamp(url);
+    return axios.get(makeUrl(urlWithTime), options);
   },
 
   post (url, param, options) {

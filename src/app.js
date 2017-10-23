@@ -94,7 +94,6 @@ axios.interceptors.response.use(function (response) {
 
 //无状态组件
 const App = () => {
-  //TODO 最外层的作用就是绑定组件，注入store
   return (
     <LocaleProvider locale={appLocale.antd}>
       <IntlProvider locale={appLocale.locale} messages={appLocale.messages}>
