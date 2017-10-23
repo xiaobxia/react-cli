@@ -2,6 +2,7 @@
  * Created by xiaobxia on 2017/9/18.
  */
 import React, {Component} from 'react'
+import {Alert} from 'antd';
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {consoleRender} from 'localUtil/consoleLog'
@@ -16,10 +17,10 @@ class Dashboard extends Component {
     consoleRender('Dashboard render');
     let locale = this.props.intl.formatMessage;
     return (
-      <h2>
+      <Alert message={(<h2>
         <span>{locale({id: 'App.hello'})}, </span>
         <span>{this.props.app.loginUser.userName}</span>
-      </h2>
+      </h2>)} type="success" />
     );
   }
 }
