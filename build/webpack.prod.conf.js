@@ -33,7 +33,10 @@ var webpackConfig = merge(baseWebpackConfig, {
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-        warnings: false
+        warnings: false,
+        //移除console.log
+        drop_debugger: true,
+        drop_console: true
       },
       sourceMap: true
     }),
