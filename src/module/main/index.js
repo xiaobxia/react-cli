@@ -104,7 +104,10 @@ class Main extends Component {
             </Sider>
             <Layout className={{'app-content': true, 'open': !store.collapsed}}>
               <Header className="app-header">
-                <AppHeader userName={store.loginUser.userName} onLogout={props.appActions.appLogout}/>
+                <AppHeader
+                  userName={store.loginUser.userName}
+                  onLogout={props.appActions.appLogout}
+                />
               </Header>
               <Content className="app-route-view">
                 {props.children}

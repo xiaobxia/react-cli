@@ -99,6 +99,7 @@ export const appReducers = (state = appStore, action) => {
     }
     case APP_LOGIN_SUC: {
       data.loginUser = action.loginUser;
+      //登录页登录的初始化，内部登录不需要
       data.collapsed = false;
       localStorage.removeItem('collapsed');
       localStorage.setItem('userCode', action.loginUser.userCode);
