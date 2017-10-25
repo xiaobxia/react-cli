@@ -8,6 +8,7 @@ import {withRouter} from 'react-router-dom'
 import qs from 'qs'
 import HelloWord from 'localComponent/helloWorld'
 import {consoleRender} from 'localUtil/consoleLog'
+import classNames from 'classnames'
 
 class Test extends Component {
   constructor(props) {
@@ -92,6 +93,9 @@ class Test extends Component {
           <div>
             {this.state.type === 1 ? (<p>1</p>) : (<p>2</p>)}
           </div>
+        </div>
+        <div className="test-block">
+          <h3 className={classNames({'one': true, 'two': false})}>classnames</h3>
         </div>
       </div>
     );

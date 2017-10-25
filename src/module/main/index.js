@@ -102,6 +102,7 @@ class Main extends Component {
               </div>
               <AppMenu {...state.menuProps}/>
             </Sider>
+            {/*ant内部有classnames所以能直接用，原生的标签与要这个库*/}
             <Layout className={{'app-content': true, 'open': !store.collapsed}}>
               <Header className="app-header">
                 <AppHeader
