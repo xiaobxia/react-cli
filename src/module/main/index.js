@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {PureComponent} from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
 import {HashRouter as Router, Link, Prompt} from 'react-router-dom'
@@ -12,7 +12,7 @@ const {Header, Content, Sider} = Layout;
 import {appActions} from 'localStore/actions'
 import {consoleRender} from 'localUtil/consoleLog'
 
-class Main extends Component {
+class Main extends PureComponent {
   constructor() {
     super();
   }

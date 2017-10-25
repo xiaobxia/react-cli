@@ -1,7 +1,7 @@
 /**
  * Created by xiaobxia on 2017/10/18.
  */
-import React, {Component} from 'react'
+import React, {PureComponent} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
@@ -10,7 +10,7 @@ import HelloWord from 'localComponent/helloWorld'
 import {consoleRender} from 'localUtil/consoleLog'
 import classNames from 'classnames'
 
-class Test extends Component {
+class Test extends PureComponent {
   constructor(props) {
     super(props);
   }

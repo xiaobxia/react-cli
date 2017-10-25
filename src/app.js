@@ -47,7 +47,6 @@ console.log('app.js init');
 
 //http拦截
 axios.interceptors.request.use(function (config) {
-  console.log('in start')
   Nprogress.start();
   return config;
 }, function (error) {
@@ -55,7 +54,6 @@ axios.interceptors.request.use(function (config) {
 });
 axios.interceptors.response.use(function (response) {
   // Do something with response data
-  console.log('in done')
   Nprogress.done();
   let data = response.data;
   if (response.status === 0) { //ignore

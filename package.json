@@ -21,6 +21,7 @@
     "prop-types": "^15.6.0",
     "qs": "^6.5.0",
     "react": "^15.6.1",
+    "react-addons-perf": "^15.4.2",
     "react-dom": "^15.6.1",
     "react-intl": "^2.4.0",
     "react-redux": "^5.0.6",

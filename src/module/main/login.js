@@ -1,12 +1,12 @@
 /**
  * Created by xiaobxia on 2017/10/18.
  */
-import React, {Component} from 'react'
+import React, {PureComponent} from 'react'
 import {Card, Icon, Button, Form, Input} from 'antd';
 import {injectIntl} from 'react-intl';
 import {consoleRender} from 'localUtil/consoleLog'
 const FormItem = Form.Item;
-class AppLogin extends Component {
+class AppLogin extends PureComponent {
   loginHandler = () => {
     const {
       form: {
