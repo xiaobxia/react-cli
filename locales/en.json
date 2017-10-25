@@ -1,5 +1,6 @@
 {
   "App.name": "xiaobxia console",
+  "App.language": "language",
   "App.menu.dashboard": "dashboard",
   "App.menu.test": "test",
   "App.login": "Log in",

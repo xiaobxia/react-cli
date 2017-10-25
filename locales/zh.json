@@ -1,5 +1,6 @@
 {
   "App.name": "xiaobxia 控制台",
+  "App.language": "语言",
   "App.menu.dashboard": "仪表盘",
   "App.menu.test": "测试",
   "App.login": "登录",

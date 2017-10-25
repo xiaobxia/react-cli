@@ -7,12 +7,13 @@ import {injectIntl} from 'react-intl';
 import {consoleRender} from 'localUtil/consoleLog'
 class AppHeader extends Component {
   state = {
-    loginUserMenuOpen: false
+    loginUserMenuOpen: false,
+    languageMenuOpen: false
   };
 
-  visibleChangeHandler = (visible) => {
+  visibleChangeHandler = (visible, key) => {
     this.setState({
-      loginUserMenuOpen: visible
+      [key]: visible
     });
   };
 
@@ -51,13 +52,25 @@ class AppHeader extends Component {
     return (
       <div>
         <div className="logo">{locale({id: 'App.name'})}</div>
-        <Dropdown overlay={loginUserMenu} trigger={['click']} onVisibleChange={this.visibleChangeHandler}>
+        <Dropdown overlay={loginUserMenu} trigger={['click']} onVisibleChange={(visible) => {
+          this.visibleChangeHandler(visible, 'loginUserMenuOpen');
+        }}>
           <span className="login-user-menu">
             <Avatar className="user-avatar" icon="user"/>
             {this.props.userName}
             <Icon style={{marginLeft: '.5em'}} type={this.state.loginUserMenuOpen ? 'up' : 'down'}/>
           </span>
         </Dropdown>
+        {/*
+         <Dropdown overlay={loginUserMenu} trigger={['click']} onVisibleChange={(visible) => {
+         this.visibleChangeHandler(visible, 'languageMenuOpen')
+         }}>
+         <span className="login-user-menu">
+         {locale({id: 'App.language'})}
+         <Icon style={{marginLeft: '.5em'}} type={this.state.languageMenuOpen ? 'up' : 'down'}/>
+         </span>
+         </Dropdown>
+        */}
       </div>
     );
   }

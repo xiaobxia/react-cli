@@ -16,6 +16,7 @@
     "babel-polyfill": "^6.26.0",
     "intl": "^1.2.5",
     "moment": "^2.18.1",
+    "nprogress": "^0.2.0",
     "prop-types": "^15.6.0",
     "qs": "^6.5.0",
     "react": "^15.6.1",

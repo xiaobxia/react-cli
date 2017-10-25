@@ -8,6 +8,7 @@ import Main from './module/main';
 import NoMatch from 'localComponent/noMatch'
 import routes from './router';
 import store from './store';
+import Nprogress from 'nprogress'
 
 /**
  * ***********国际化************
@@ -45,8 +46,17 @@ addLocaleData(appLocale.data);
 console.log('app.js init');
 
 //http拦截
+axios.interceptors.request.use(function (config) {
+  console.log('in start')
+  Nprogress.start();
+  return config;
+}, function (error) {
+  return Promise.reject(error);
+});
 axios.interceptors.response.use(function (response) {
   // Do something with response data
+  console.log('in done')
+  Nprogress.done();
   let data = response.data;
   if (response.status === 0) { //ignore
     console.warn('[HTTP status=0]');
