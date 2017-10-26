@@ -14,9 +14,9 @@ class AppLogin extends PureComponent {
       },
       onLogin
     } = this.props;
-    onLogin(getFieldsValue());
+    onLogin(getFieldsValue()
+);
   };
-
   render() {
     consoleRender('Login render');
     // 渲染多次的原因是，自动填充了两次
