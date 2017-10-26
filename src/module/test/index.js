@@ -16,7 +16,8 @@ class Test extends PureComponent {
   }
 
   state = {
-    type: 1
+    type: 1,
+    user: {name: 'xiaobxia'}
   };
 
   componentWillMount() {
@@ -57,9 +58,22 @@ class Test extends PureComponent {
     this.props.history.push('/dashboard?' + query);
   };
 
+  changeName = () => {
+    //react建议把state当做不可变
+    this.setState((preState) => {
+      let user = preState.user;
+      user.name = 'xiaobxia1';
+      //是一种merge的行为
+      return {
+        user: user
+      }
+    })
+  };
+
   render() {
     consoleRender('Test render');
     console.log('Test props', this.props);
+    console.log('Test state', this.state);
     let locale = this.props.intl.formatMessage;
     //query在search里
     let query = qs.parse(this.props.location.search.slice(1));
@@ -96,6 +110,12 @@ class Test extends PureComponent {
         </div>
         <div className="test-block">
           <h3 className={classNames({'one': true, 'two': false})}>classnames</h3>
+        </div>
+        <div className="test-block">
+          <h3>修改state</h3>
+          <div>
+            <button onClick={this.changeName}>{this.state.user.name}</button>
+          </div>
         </div>
       </div>
     );
