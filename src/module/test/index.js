@@ -61,6 +61,7 @@ class Test extends PureComponent {
   changeName = () => {
     //react建议把state当做不可变
     this.setState((preState) => {
+      //this.state和preState是相同的引用
       let user = preState.user;
       user.name = 'xiaobxia1';
       //是一种merge的行为
