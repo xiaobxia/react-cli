@@ -16,6 +16,7 @@
     "babel-polyfill": "^6.26.0",
     "classnames": "^2.2.5",
     "intl": "^1.2.5",
+    "md5": "^2.2.1",
     "moment": "^2.18.1",
     "nprogress": "^0.2.0",
     "prop-types": "^15.6.0",

@@ -86,40 +86,42 @@ class Main extends PureComponent {
       let state = this.state;
       return (
         <Router>
-          <Layout>
-            <Sider
-              trigger={null}
-              collapsible
-              className="app-sider"
-              collapsed={store.collapsed}
-            >
-              <div className="trigger-wrap">
-                <Icon
-                  className="trigger"
-                  type={store.collapsed ? 'menu-unfold' : 'menu-fold'}
-                  onClick={this.toggleCollapsed}
+          <div className="app-main">
+            <Layout>
+              <Sider
+                trigger={null}
+                collapsible
+                className="app-sider"
+                collapsed={store.collapsed}
+              >
+                <div className="trigger-wrap">
+                  <Icon
+                    className="trigger"
+                    type={store.collapsed ? 'menu-unfold' : 'menu-fold'}
+                    onClick={this.toggleCollapsed}
+                  />
+                </div>
+                <AppMenu {...state.menuProps}/>
+              </Sider>
+              {/*ant内部有classnames所以能直接用，原生的标签与要这个库*/}
+              <Layout className={{'app-content': true, 'open': !store.collapsed}}>
+                <Header className="app-header">
+                  <AppHeader
+                    userName={store.loginUser.userName}
+                    onLogout={props.appActions.appLogout}
+                  />
+                </Header>
+                <Content className="app-route-view">
+                  {props.children}
+                </Content>
+                <ModelLogin
+                  onLogin={props.appActions.appInsetLogin}
+                  onHide={props.appActions.appHideGlobLogin}
+                  visible={store.showGlobLogin}
                 />
-              </div>
-              <AppMenu {...state.menuProps}/>
-            </Sider>
-            {/*ant内部有classnames所以能直接用，原生的标签与要这个库*/}
-            <Layout className={{'app-content': true, 'open': !store.collapsed}}>
-              <Header className="app-header">
-                <AppHeader
-                  userName={store.loginUser.userName}
-                  onLogout={props.appActions.appLogout}
-                />
-              </Header>
-              <Content className="app-route-view">
-                {props.children}
-              </Content>
-              <ModelLogin
-                onLogin={props.appActions.appInsetLogin}
-                onHide={props.appActions.appHideGlobLogin}
-                visible={store.showGlobLogin}
-              />
+              </Layout>
             </Layout>
-          </Layout>
+          </div>
         </Router>
       );
     }

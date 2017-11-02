@@ -53,38 +53,27 @@ axios.interceptors.request.use(function (config) {
   return Promise.reject(error);
 });
 axios.interceptors.response.use(function (response) {
-  // Do something with response data
   Nprogress.done();
   let data = response.data;
-  if (response.status === 0) { //ignore
+  if (response.status === 0) {
     console.warn('[HTTP status=0]');
     return response;
-  } else { //200
-    if (data.success === false) {
-      console.info('[HTTP ERROR]', response);
-      switch (data.errorCode) {
-        case 'USER_NEED_LOGIN':
+  } else {
+    //200
+    if (data.status !== 0) {
+      //有错误
+      switch (data.status) {
         case 'USER_SESSION_TIMEOUT':
           store.dispatch({type: 'APP_SHOW_GLOB_LOGIN'});
           break;
-        // default:
-        //   if (!request.headers.has('ignoreGlobalDialog')) {
-        //     //const msg = `[${data.errorCode}]${data.errorMessage}`;
-        //     const msg = `${data.errorMessage}`;
-        //     MessageBox.alert(msg, 'Error', {type: 'error'});
-        //   }
-        //   break;
       }
-      response.ok = false;
-      // next(request.respondWith(data));
-      //throw data; // end http request, hack it
     }
     return response;
   }
 }, function (error) {
-  console.log('in error');
+  Nprogress.done();
+  console.log('http in error');
   let response = error.response;
-  console.info('[HTTP ERROR]', response);
   const {errorCode, errorMessage} = response.data || {};
   let errorMsg = 'Server Internal Error. Please contact Administrator!';
   if (errorMessage) {

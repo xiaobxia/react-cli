@@ -32,7 +32,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       "/your-business": {
-        "target": "http://39.108.114.91:8080/",
+        "target": "http://localhost:8080/",
         //"target": "http://localhost:8080/"
       }
     //your-business': {

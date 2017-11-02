@@ -1,7 +1,8 @@
 /**
  * Created by xiaobxia on 2017/10/19.
  */
-import http from 'localUtil/httpUtil'
+import md5 from 'md5';
+import http from 'localUtil/httpUtil';
 const APP_TOGGLE_COLLAPSED = 'APP_TOGGLE_COLLAPSED';
 const APP_LOGIN = 'APP_LOGIN';
 const APP_LOGIN_SUC = 'APP_LOGIN_SUC';
@@ -20,7 +21,7 @@ export const appActions = {
   appCheckLogin() {
     return (dispatch, getState) => {
       dispatch({type: APP_CHECK_LOGIN});
-      return http.get('sys/isLogin').then((data) => {
+      return http.get('sys/checkLogin').then((data) => {
         dispatch({type: APP_CHECK_LOGIN_SUC, loginUser: data});
       });
     };
@@ -28,15 +29,19 @@ export const appActions = {
   appLogin({user, password}) {
     return (dispatch, getState) => {
       dispatch({type: APP_LOGIN});
-      return http.post('sys/login', {userCode: user, pwd: password}).then((data) => {
-        dispatch({type: APP_LOGIN_SUC, loginUser: data});
+      return http.post('sys/login', {userCode: user, pwd: md5(password)}).then((data) => {
+        if (data.login === true) {
+          dispatch({type: APP_LOGIN_SUC, loginUser: data});
+        } else {
+          return data;
+        }
       });
     };
   },
   appInsetLogin({user, password}) {
     return (dispatch, getState) => {
       //内部登录，减少状态变化
-      return http.post('sys/login', {userCode: user, pwd: password}).then((data) => {
+      return http.post('sys/login', {userCode: user, pwd: md5(password)}).then((data) => {
         dispatch({type: APP_INSET_LOGIN_SUC, loginUser: data});
       });
     };
@@ -87,7 +92,7 @@ export const appReducers = (state = appStore, action) => {
     }
     case APP_CHECK_LOGIN_SUC: {
       data.isGlobLoading = false;
-      if (action.loginUser.login === true) {
+      if (action.loginUser.isLogin === true) {
         data.loginUser = action.loginUser;
         localStorage.setItem('userCode', action.loginUser.userCode);
       }

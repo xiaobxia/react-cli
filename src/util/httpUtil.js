@@ -21,7 +21,7 @@ function addTimestamp(url) {
 const Http = {
   get (url, options) {
     let urlWithTime = addTimestamp(url);
-    return axios.get(makeUrl(urlWithTime), options).then(data => data.data.result);
+    return axios.get(makeUrl(urlWithTime), options).then(data => data.data.data);
   },
 
   getRaw (url, options) {
@@ -30,7 +30,7 @@ const Http = {
   },
 
   post (url, param, options) {
-    return axios.post(makeUrl(url), qs.stringify(param), options).then(data => data.data.result);
+    return axios.post(makeUrl(url), qs.stringify(param), options).then(data => data.data.data);
   },
 
   postRaw (url, param, options) {
@@ -38,7 +38,7 @@ const Http = {
   },
 
   postJSON (url, param, options) {
-    return axios.post(makeUrl(url), param, options).then(data => data.data.result);
+    return axios.post(makeUrl(url), param, options).then(data => data.data.data);
   },
 
   postJSONRaw (url, param, options) {
@@ -46,7 +46,7 @@ const Http = {
   },
 
   delete (url, options) {
-    return axios.delete(makeUrl(url), options).then(data => data.data.result);
+    return axios.delete(makeUrl(url), options).then(data => data.data.data);
   },
 
   deleteRaw (url, options) {
