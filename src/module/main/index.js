@@ -94,6 +94,7 @@ class Main extends PureComponent {
                 className="app-sider"
                 collapsed={store.collapsed}
               >
+                <AppMenu {...state.menuProps}/>
                 <div className="trigger-wrap">
                   <Icon
                     className="trigger"
@@ -101,7 +102,6 @@ class Main extends PureComponent {
                     onClick={this.toggleCollapsed}
                   />
                 </div>
-                <AppMenu {...state.menuProps}/>
               </Sider>
               {/*ant内部有classnames所以能直接用，原生的标签与要这个库*/}
               <Layout className={{'app-content': true, 'open': !store.collapsed}}>

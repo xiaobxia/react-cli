@@ -17,7 +17,8 @@ class Test extends PureComponent {
 
   state = {
     type: 1,
-    user: {name: 'xiaobxia'}
+    user: {name: 'xiaobxia'},
+    ws: null
   };
 
   componentWillMount() {
@@ -25,7 +26,18 @@ class Test extends PureComponent {
   }
 
   componentDidMount() {
-    console.log('装载Test完成');
+    const ws = new WebSocket('ws://localhost:8080');
+    ws.onmessage = function (event) {
+      console.log(event);
+      //updateStats(JSON.parse(event.data));
+    };
+    window.onbeforeunload = function () {
+      ws.send('bbbb');
+      ws.close();
+    };
+    this.setState({
+      ws
+    })
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -42,6 +54,7 @@ class Test extends PureComponent {
 
   componentWillUnmount() {
     console.log('将要卸载Test');
+    this.state.ws.close();
   }
 
   shouldComponentUpdate(props, newState) {
@@ -58,6 +71,10 @@ class Test extends PureComponent {
     this.props.history.push('/dashboard?' + query);
   };
 
+  sendMessage = () => {
+    this.state.ws.send('vvvvvv');
+  };
+
   changeName = () => {
     //react建议把state当做不可变
     this.setState((preState) => {
@@ -68,7 +85,7 @@ class Test extends PureComponent {
       return {
         user: user
       }
-    })
+    });
   };
 
   render() {
@@ -116,6 +133,13 @@ class Test extends PureComponent {
           <h3>修改state</h3>
           <div>
             <button onClick={this.changeName}>{this.state.user.name}</button>
+          </div>
+        </div>
+        <div className="test-block">
+          <h3>WebSocket</h3>
+          <div>
+            <input type="text"/>
+            <button type="button" onClick={this.sendMessage}>发送消息</button>
           </div>
         </div>
       </div>

@@ -73,7 +73,6 @@ class AppLogin extends PureComponent {
             </FormItem>
           </Form>
         </Card>
-        <Alert className="registerInfo" message={<p>没有用户?<span>创建一个用户</span></p>}/>
       </div>
     );
   }
