@@ -131,6 +131,7 @@
     .app-content {
       margin-left: 64px;
       transition: all .2s;
+      background-color: $background-color;
       &.open {
         margin-left: 200px;
       }

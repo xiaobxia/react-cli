@@ -5,10 +5,12 @@ import React, {PureComponent} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
+import { Input } from 'antd';
 import qs from 'qs'
 import HelloWord from 'localComponent/helloWorld'
 import {consoleRender} from 'localUtil/consoleLog'
 import classNames from 'classnames'
+import {injectIntl} from 'react-intl';
 
 class Test extends PureComponent {
   constructor(props) {
@@ -17,50 +19,19 @@ class Test extends PureComponent {
 
   state = {
     type: 1,
-    user: {name: 'xiaobxia'},
-    ws: null
+    user: {name: 'xiaobxia'}
   };
 
   componentWillMount() {
-    console.log('将要装载Test');
+    // console.log('将要装载Test');
   }
 
   componentDidMount() {
-    const ws = new WebSocket('ws://localhost:8080');
-    ws.onmessage = function (event) {
-      console.log(event);
-      //updateStats(JSON.parse(event.data));
-    };
-    window.onbeforeunload = function () {
-      ws.send('bbbb');
-      ws.close();
-    };
-    this.setState({
-      ws
-    })
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    console.log('Test将要更新');
-    console.log(nextProps);
-    console.log(nextState);
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    console.log('Test更新完成');
-    console.log(prevProps);
-    console.log(prevState);
   }
 
   componentWillUnmount() {
     console.log('将要卸载Test');
-    this.state.ws.close();
-  }
-
-  shouldComponentUpdate(props, newState) {
-    console.log('是否更新Test');
-    //返回false就不更新
-    return true;
+    // this.state.ws.close();
   }
 
   jumpToDashboard = () => {
@@ -69,10 +40,6 @@ class Test extends PureComponent {
       name: 'xiaobxia'
     });
     this.props.history.push('/dashboard?' + query);
-  };
-
-  sendMessage = () => {
-    this.state.ws.send('vvvvvv');
   };
 
   changeName = () => {
@@ -90,12 +57,9 @@ class Test extends PureComponent {
 
   render() {
     consoleRender('Test render');
-    console.log('Test props', this.props);
-    console.log('Test state', this.state);
     let locale = this.props.intl.formatMessage;
     //query在search里
     let query = qs.parse(this.props.location.search.slice(1));
-    console.log('url query', query);
     return (
       <div className="module-test">
         <h1>TEST模块</h1>
@@ -132,14 +96,8 @@ class Test extends PureComponent {
         <div className="test-block">
           <h3>修改state</h3>
           <div>
-            <button onClick={this.changeName}>{this.state.user.name}</button>
-          </div>
-        </div>
-        <div className="test-block">
-          <h3>WebSocket</h3>
-          <div>
             <input type="text"/>
-            <button type="button" onClick={this.sendMessage}>发送消息</button>
+            <button onClick={this.changeName}>{this.state.user.name}</button>
           </div>
         </div>
       </div>
@@ -147,10 +105,5 @@ class Test extends PureComponent {
   }
 }
 
-// export const mapDispatchToProps = dispatch => ({
-//   //action在此为引入
-//   actions: bindActionCreators(globAction, dispatch)
-// });
 
-
-export default connect()(withRouter(Test));
+export default injectIntl(withRouter(connect()(Test)));

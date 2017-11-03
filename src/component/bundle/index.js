@@ -2,7 +2,6 @@
  * Created by xiaobxia on 2017/9/21.
  */
 import React, {Component} from 'react'
-import {injectIntl} from 'react-intl';
 
 export default class Bundle extends Component {
   constructor(props) {
@@ -11,6 +10,11 @@ export default class Bundle extends Component {
   componentWillMount() {
     this.load(this.props)
   }
+
+  componentWillUnmount() {
+    console.log('Bundle 卸载');
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.load !== this.props.load) {
       this.load(nextProps)
@@ -28,6 +32,7 @@ export default class Bundle extends Component {
   };
 
   render() {
-    return this.state.mod ? this.props.children(injectIntl(this.state.mod)) : null;
+    //国际化不能再这里包，不然会引起组件频繁卸载和装载
+    return this.state.mod ? this.props.children(this.state.mod) : null;
   }
 }

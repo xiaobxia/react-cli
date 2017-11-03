@@ -6,13 +6,16 @@ import Test from 'bundle-loader?lazy!module/test'
 //router4就得以这种方式懒加载
 //其实model不需要按需加载，因为本来就不应该太大，应该由组件自己维护状态
 let getComponent = (component) => {
-  return (props) => (
-    <Bundle load={component}>
-      {(Container) => {
-        return (<Container {...props}/>);
-      }}
-    </Bundle>
-  );
+  return (props) => {
+    const childContainer = (Container) => {
+      return (<Container {...props}/>);
+    };
+    return (
+      <Bundle load={component}>
+        {childContainer}
+      </Bundle>
+    );
+  }
 };
 export default [
   {

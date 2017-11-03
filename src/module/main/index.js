@@ -64,7 +64,6 @@ class Main extends PureComponent {
   componentWillUnmount() {
   }
 
-  // 这一层在vue中是看不到的，vue帮你做了
   render() {
     consoleRender('App render');
     // console.log('App props', this.props);
