@@ -7,12 +7,11 @@ import Test from 'bundle-loader?lazy!module/test'
 //其实model不需要按需加载，因为本来就不应该太大，应该由组件自己维护状态
 let getComponent = (component) => {
   return (props) => {
-    const childContainer = (Container) => {
-      return (<Container {...props}/>);
-    };
     return (
       <Bundle load={component}>
-        {childContainer}
+        {(Container) => {
+          return (<Container {...props}/>);
+        }}
       </Bundle>
     );
   }
@@ -21,20 +20,17 @@ export default [
   {
     name: 'Home',
     path: '/home',
-    component: getComponent(Dashboard),
-    noCheck: true
+    component: getComponent(Dashboard)
   },
   {
     name: 'Dashboard Home',
     path: '/',
-    component: getComponent(Dashboard),
-    noCheck: true
+    component: getComponent(Dashboard)
   },
   {
     name: 'Dashboard',
     path: '/dashboard',
-    component: getComponent(Dashboard),
-    noCheck: true
+    component: getComponent(Dashboard)
   },
   {
     name: 'Test',

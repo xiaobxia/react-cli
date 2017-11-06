@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import {Provider} from 'react-redux';
-import {Route, Switch} from 'react-router-dom';
+import {HashRouter as Router, Route, Switch} from 'react-router-dom';
 import 'antd/dist/antd.css';
 import './scss/index.scss';
 import Main from './module/main';
@@ -95,20 +95,21 @@ const App = () => {
     <LocaleProvider locale={appLocale.antd}>
       <IntlProvider locale={appLocale.locale} messages={appLocale.messages}>
         <Provider store={store}>
-          <Main>
-            {/*排他路由*/}
-            <Switch>
-              {routes.map(function (item, index) {
-                return (<Route exact key={index} path={item.path} component={item.component}/>)
-              })}
-              {/*404的路由，和express的路由很像*/}
-              {/*
-               如果路由需要鉴权可以使用404
-               <Route exact path='/404' component={NoMatch}/>
-              */}
-              <Route component={NoMatch}/>
-            </Switch>
-          </Main>
+          <Router>
+            <Main>
+              <Switch>
+                {/*排他路由*/}
+                {routes.map(function (item, index) {
+                  return (<Route exact key={item.path + index} path={item.path} component={item.component}/>)
+                })}
+                <Route component={NoMatch}/>
+                {/*
+                 如果路由需要鉴权可以使用404
+                 <Route exact path='/404' component={NoMatch}/>
+                 */}
+              </Switch>
+            </Main>
+          </Router>
         </Provider>
       </IntlProvider>
     </LocaleProvider>

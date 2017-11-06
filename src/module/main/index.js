@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react'
 import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom'
 import {bindActionCreators} from 'redux';
-import {HashRouter as Router, Link, Prompt} from 'react-router-dom'
 import {Icon, Layout, Spin} from 'antd';
 import {injectIntl} from 'react-intl';
 import AppLogin from './login'
@@ -84,44 +84,42 @@ class Main extends PureComponent {
     } else {
       let state = this.state;
       return (
-        <Router>
-          <div className="app-main">
-            <Layout>
-              <Sider
-                trigger={null}
-                collapsible
-                className="app-sider"
-                collapsed={store.collapsed}
-              >
-                <AppMenu {...state.menuProps}/>
-                <div className="trigger-wrap">
-                  <Icon
-                    className="trigger"
-                    type={store.collapsed ? 'menu-unfold' : 'menu-fold'}
-                    onClick={this.toggleCollapsed}
-                  />
-                </div>
-              </Sider>
-              {/*ant内部有classnames所以能直接用，原生的标签与要这个库*/}
-              <Layout className={{'app-content': true, 'open': !store.collapsed}}>
-                <Header className="app-header">
-                  <AppHeader
-                    userName={store.loginUser.userName}
-                    onLogout={props.appActions.appLogout}
-                  />
-                </Header>
-                <Content className="app-route-view">
-                  {props.children}
-                </Content>
-                <ModelLogin
-                  onLogin={props.appActions.appInsetLogin}
-                  onHide={props.appActions.appHideGlobLogin}
-                  visible={store.showGlobLogin}
+        <div className="app-main">
+          <Layout>
+            <Sider
+              trigger={null}
+              collapsible
+              className="app-sider"
+              collapsed={store.collapsed}
+            >
+              <AppMenu {...state.menuProps}/>
+              <div className="trigger-wrap">
+                <Icon
+                  className="trigger"
+                  type={store.collapsed ? 'menu-unfold' : 'menu-fold'}
+                  onClick={this.toggleCollapsed}
                 />
-              </Layout>
+              </div>
+            </Sider>
+            {/*ant内部有classnames所以能直接用，原生的标签与要这个库*/}
+            <Layout className={{'app-content': true, 'open': !store.collapsed}}>
+              <Header className="app-header">
+                <AppHeader
+                  userName={store.loginUser.userName}
+                  onLogout={props.appActions.appLogout}
+                />
+              </Header>
+              <Content className="app-route-view">
+                {props.children}
+              </Content>
+              <ModelLogin
+                onLogin={props.appActions.appInsetLogin}
+                onHide={props.appActions.appHideGlobLogin}
+                visible={store.showGlobLogin}
+              />
             </Layout>
-          </div>
-        </Router>
+          </Layout>
+        </div>
       );
     }
   }
@@ -138,4 +136,4 @@ const mapDispatchToProps = dispatch => ({
   appActions: bindActionCreators(appActions, dispatch)
 });
 
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Main));
+export default injectIntl(withRouter(connect(mapStateToProps, mapDispatchToProps)(Main)));
