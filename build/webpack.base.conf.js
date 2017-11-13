@@ -26,11 +26,10 @@ module.exports = {
     alias: {
       '@': resolve('src'),
       //通过module引入
-      'module': path.resolve(__dirname, '../src/module'),
+      'localRoutes': path.resolve(__dirname, '../src/routes'),
       'localUtil': path.resolve(__dirname, '../src/util'),
-      'localComponent': path.resolve(__dirname, '../src/component'),
-      'localStore': path.resolve(__dirname, '../src/store'),
-      'baseComponent': path.resolve(__dirname, '../src/component/baseComponent')
+      'localComponent': path.resolve(__dirname, '../src/components'),
+      'localStore': path.resolve(__dirname, '../src/store')
     }
   },
   plugins: [

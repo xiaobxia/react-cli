@@ -32,9 +32,8 @@ export const appActions = {
       return http.post('sys/login', {userCode: user, pwd: md5(password)}).then((data) => {
         if (data.login === true) {
           dispatch({type: APP_LOGIN_SUC, loginUser: data});
-        } else {
-          return data;
         }
+        return data;
       });
     };
   },
@@ -60,21 +59,15 @@ export const appActions = {
   }
 };
 
-//TODO 可类比vue中的mutation，区别在于在react中接受旧的state，修改后返回新的state
-//TODO 不要直接对state做修改，而是对其副本做修改
-//TODO state必须有默认值
-//TODO 这里的state不是指整个state树，而是combineReducers中key对应的state
-//TODO reducer是纯净的，不能有请求，个随机数据
 const appStore = {
+  checkLoginEnd: false,
   loginUser: null,
   isGlobLoading: false,
   showGlobLogin: false,
   collapsed: localStorage.getItem('collapsed') === 'true'
 };
 export const appReducers = (state = appStore, action) => {
-  //这里的state是glob内的state
   let data = Object.assign({}, state);
-  //action是actions中返回的对象
   switch (action.type) {
     case APP_TOGGLE_COLLAPSED: {
       data.collapsed = !data.collapsed;
@@ -92,6 +85,7 @@ export const appReducers = (state = appStore, action) => {
     }
     case APP_CHECK_LOGIN_SUC: {
       data.isGlobLoading = false;
+      data.checkLoginEnd = true;
       if (action.loginUser.isLogin === true) {
         data.loginUser = action.loginUser;
         localStorage.setItem('userCode', action.loginUser.userCode);

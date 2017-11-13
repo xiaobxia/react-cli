@@ -1,19 +1,18 @@
-import React from 'react';
-import axios from 'axios';
-import {Provider} from 'react-redux';
-import {HashRouter as Router, Route, Switch} from 'react-router-dom';
+import React, {PureComponent} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {HashRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 import 'antd/dist/antd.css';
 import './scss/index.scss';
-import Main from './module/main';
-import NoMatch from 'localComponent/noMatch'
-import routes from './router';
-import store from './store';
-import Nprogress from 'nprogress'
+import AuthLayout from './layouts/AuthLayout'
+import BaseLayout from './layouts/BaseLayout'
+import PrivateRoute from 'localComponent/privateRoute'
+import {appActions} from 'localStore/actions'
 
 /**
  * ***********国际化************
  **/
-import {LocaleProvider, Modal} from 'antd';
+import {LocaleProvider, Spin} from 'antd';
 import {addLocaleData, IntlProvider} from 'react-intl';
 import 'intl';
 import 'intl/locale-data/jsonp/en.js';
@@ -41,82 +40,51 @@ const appLocale = {
 //   data: appLocaleData
 // };
 
-
 addLocaleData(appLocale.data);
 console.log('app.js init');
 
-//http拦截
-axios.interceptors.request.use(function (config) {
-  Nprogress.start();
-  return config;
-}, function (error) {
-  return Promise.reject(error);
-});
-axios.interceptors.response.use(function (response) {
-  Nprogress.done();
-  let data = response.data;
-  if (response.status === 0) {
-    console.warn('[HTTP status=0]');
-    return response;
-  } else {
-    //200
-    if (data.status !== 0) {
-      //有错误
-      switch (data.status) {
-        case 'USER_SESSION_TIMEOUT':
-          store.dispatch({type: 'APP_SHOW_GLOB_LOGIN'});
-          break;
-      }
-    }
-    return response;
-  }
-}, function (error) {
-  Nprogress.done();
-  console.log('http in error');
-  let response = error.response;
-  const {errorCode, errorMessage} = response.data || {};
-  let errorMsg = 'Server Internal Error. Please contact Administrator!';
-  if (errorMessage) {
-    errorMsg = `${errorMessage}`;
-  }
-  console.log(errorCode, errorMsg);
-  const msg = `${response.status} ${response.statusText}; \r\n${errorMsg}`;
-  Modal.error({
-    title: 'This is an error message',
-    content: msg
-  });
-  // Do something with response error
-  return Promise.reject(error);
-});
-
 //无状态组件
-const App = () => {
-  return (
-    <LocaleProvider locale={appLocale.antd}>
-      <IntlProvider locale={appLocale.locale} messages={appLocale.messages}>
-        <Provider store={store}>
-          <Router>
-            <Main>
-              <Switch>
-                {/*排他路由*/}
-                {routes.map(function (item, index) {
-                  return (<Route exact key={item.path + index} path={item.path} component={item.component}/>)
-                })}
-                <Route component={NoMatch}/>
-                {/*
-                 如果路由需要鉴权可以使用404
-                 <Route exact path='/404' component={NoMatch}/>
-                 */}
-              </Switch>
-            </Main>
-          </Router>
-        </Provider>
-      </IntlProvider>
-    </LocaleProvider>
-  )
-};
+class App extends PureComponent {
+  componentWillMount() {
+    this.props.appActions.appCheckLogin();
+  }
 
-//渲染根元素
-//在顶层使用Provider可以避免把store 作为 props 传递到每一个被 connet() 包装的组件
-export default App;
+  render() {
+    console.log('App render');
+    let store = this.props.app;
+    //防止页面一闪
+    if (store.isGlobLoading || !store.checkLoginEnd) {
+      return (
+        <div className="glob-loading-wrap">
+          <Spin size="large"/>
+        </div>
+      );
+    }
+    return (
+      <LocaleProvider locale={appLocale.antd}>
+        <IntlProvider locale={appLocale.locale} messages={appLocale.messages}>
+          <Router>
+            <Switch>
+              <Route path="/user" component={AuthLayout}/>
+              <PrivateRoute path="/" component={BaseLayout}/>
+            </Switch>
+          </Router>
+        </IntlProvider>
+      </LocaleProvider>
+    );
+  }
+}
+
+
+const mapStateToProps = state => {
+  return {
+    app: state.app
+  }
+};
+const mapDispatchToProps = dispatch => ({
+  //action在此为引入
+  appActions: bindActionCreators(appActions, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
