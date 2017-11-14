@@ -10,9 +10,9 @@ import {Modal} from 'antd';
 import axios from 'axios';
 import store from './store';
 import App from './app'
-import Perf from 'react-addons-perf'
+// import Perf from 'react-addons-perf'
 //生产环境移除
-window.Perf = Perf;
+// window.Perf = Perf;
 //Perf.start()
 //Perf.stop()
 //Perf.printInclusive()
