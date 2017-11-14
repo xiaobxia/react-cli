@@ -4,7 +4,7 @@
 import React, {PureComponent} from 'react'
 import {Card, Alert} from 'antd';
 import {connect} from 'react-redux'
-import {withRouter} from 'react-router-dom'
+import {withRouter, Link} from 'react-router-dom'
 import {bindActionCreators} from 'redux';
 import {injectIntl} from 'react-intl';
 import {consoleRender} from 'localUtil/consoleLog'
@@ -48,6 +48,7 @@ class Login extends PureComponent {
         {this.state.showError && (<Alert message={this.state.errorMsg} type="error" closable onClose={this.onClose}/>)}
         <Card noHovering={true}>
           <LoginForm onLoginHandler={this.loginHandler}/>
+          <Link to="/user/register">去注册</Link>
         </Card>
       </div>
     );
