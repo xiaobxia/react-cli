@@ -142,6 +142,15 @@ class Register extends Component {
         <h3>注册</h3>
         <Form onSubmit={this.handleSubmit}>
           <FormItem>
+            {getFieldDecorator('userName', {
+              rules: [{
+                required: true, message: '请输入用户名！'
+              }]
+            })(
+              <Input size="large" placeholder="用户名"/>
+            )}
+          </FormItem>
+          <FormItem>
             {getFieldDecorator('mail', {
               rules: [{
                 required: true, message: '请输入邮箱地址！'
