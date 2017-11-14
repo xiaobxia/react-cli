@@ -131,11 +131,3 @@ export const appReducers = (state = appStore, action) => {
     }
   }
 };
-
-
-//不combineReducers，就没有命名空间了
-// const globReducers = combineReducers({
-//   glob: reducers
-// });
-//
-// export default globReducers;
