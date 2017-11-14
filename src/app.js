@@ -6,7 +6,7 @@ import 'antd/dist/antd.css';
 import './scss/index.scss';
 import AuthLayout from './layouts/AuthLayout'
 import BaseLayout from './layouts/BaseLayout'
-import PrivateRoute from 'localComponent/privateRoute'
+import PrivateRoute from 'localComponent/PrivateRoute'
 import {appActions} from 'localStore/actions'
 
 /**

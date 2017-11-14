@@ -7,7 +7,7 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import { Input } from 'antd';
 import qs from 'qs'
-import HelloWord from 'localComponent/helloWorld'
+import HelloWord from 'localComponent/HelloWorld'
 import {consoleRender} from 'localUtil/consoleLog'
 import classNames from 'classnames'
 import {injectIntl} from 'react-intl';
