@@ -3,15 +3,14 @@
  */
 import React, {PureComponent} from 'react'
 import {Icon, Button} from 'antd';
-import {withRouter, Link} from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
 import {consoleRender} from 'localUtil/consoleLog'
 import http from 'localUtil/httpUtil';
 import qs from 'qs'
 import Exception404 from 'localComponent/404'
 
-class RegisterResult extends PureComponent {
+class UserActive extends PureComponent {
   state = {
-    emailAccount: '',
     legal: '',
     verifyEnd: false
   };
@@ -25,17 +24,16 @@ class RegisterResult extends PureComponent {
       });
       return false;
     }
-    http.get('sys/register/result' + this.props.location.search).then((data) => {
+    http.get('sys/register/active' + this.props.location.search).then((data) => {
       if (data.success) {
         this.setState({
           verifyEnd: true,
-          legal: 'success',
-          emailAccount: data.email
+          legal: 'success'
         });
       } else {
         this.setState({
           verifyEnd: true,
-          legal: '404'
+          legal: 'overdue'
         });
       }
     });
@@ -46,9 +44,13 @@ class RegisterResult extends PureComponent {
       case 'success': {
         return (<div>
           <Icon type="check-circle"/>
-          <h2>你的账户：{this.state.emailAccount} 注册成功</h2>
-          <p>激活邮件已发送到你的邮箱中，邮件有效期为24小时。请及时登录邮箱，点击邮件中的链接激活帐户。</p>
-          <Link to="/"><Button size="large">返回首页</Button></Link>
+          <h2>验证成功</h2>
+          <p>正在跳转到首页</p>
+        </div>);
+      }
+      case 'overdue': {
+        return (<div>
+          <h3>链接已过期</h3>
         </div>);
       }
       case '404': {
@@ -61,16 +63,16 @@ class RegisterResult extends PureComponent {
   }
 
   render() {
-    consoleRender('RegisterResult render');
+    consoleRender('UserActive render');
     if (!this.state.verifyEnd) {
       return null;
     }
     return (
-      <div className="register-result">
+      <div className="register-active">
         {this.renderResult()}
       </div>
     );
   }
 }
 
-export default withRouter(RegisterResult);
+export default withRouter(UserActive);

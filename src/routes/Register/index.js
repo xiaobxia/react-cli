@@ -48,7 +48,7 @@ class Register extends Component {
           values.password = md5(values.password);
           http.post('sys/register', values).then((data) => {
             if (data.success) {
-              this.props.history.push('/registerResult');
+              this.props.history.push('/user/registerResult?code=' + data.code);
             }
           });
         }
