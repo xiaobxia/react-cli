@@ -22,26 +22,28 @@ class LoginForm extends PureComponent {
     const {
       form: {
         getFieldDecorator
-      }
+      },
+      children
     } = this.props;
     const locale = this.props.intl.formatMessage;
     return (
         <Form className="login-form">
           <FormItem>
             {getFieldDecorator('user', {
-              rules: [{required: true, message: 'Please input your username!'}]
+              rules: [{required: true, message: '请输入账户'}]
             })(
-              <Input prefix={<Icon type="user" style={{fontSize: 13}}/>} placeholder="Username"/>
+              <Input prefix={<Icon type="user" style={{fontSize: 13}}/>} placeholder="用户名/邮箱/手机号"/>
             )}
           </FormItem>
           <FormItem>
             {getFieldDecorator('password', {
-              rules: [{required: true, message: 'Please input your Password!'}]
+              rules: [{required: true, message: '请输入密码'}]
             })(
-              <Input prefix={<Icon type="lock" style={{fontSize: 13}}/>} type="password" placeholder="Password"/>
+              <Input prefix={<Icon type="lock" style={{fontSize: 13}}/>} type="password" placeholder="密码"/>
             )}
           </FormItem>
-          <FormItem style={{marginTop: '60px'}}>
+          {children}
+          <FormItem style={{marginTop: '20px'}}>
             <Button style={{width: '100%'}} type="primary" htmlType="submit" className="login-form-button"
                     onClick={this.loginHandler}>
               {locale({id: 'App.login'})}

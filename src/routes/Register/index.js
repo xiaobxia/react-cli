@@ -2,11 +2,10 @@
  * Created by xiaobxia on 2017/11/14.
  */
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 import {Link} from 'react-router-dom';
 import {Form, Input, Button, Select, Row, Col, Popover, Progress} from 'antd';
-import {appActions} from 'localStore/actions'
+import md5 from 'md5';
+import http from 'localUtil/httpUtil';
 
 const FormItem = Form.Item;
 
@@ -22,34 +21,12 @@ const passwordProgressMap = {
   pool: 'exception'
 };
 
-
+// 不在全局注册东西
 class Register extends Component {
   state = {
-    count: 0,
     confirmDirty: false,
     visible: false,
     help: ''
-  };
-
-  componentWillReceiveProps(nextProps) {
-    // if (nextProps.register.status === 'ok') {
-    // }
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
-
-  onGetCaptcha = () => {
-    let count = 59;
-    this.setState({count});
-    this.interval = setInterval(() => {
-      count -= 1;
-      this.setState({count});
-      if (count === 0) {
-        clearInterval(this.interval);
-      }
-    }, 1000);
   };
 
   getPasswordStatus = (value) => {
@@ -67,18 +44,16 @@ class Register extends Component {
     this.props.form.validateFields({force: true},
       (err, values) => {
         if (!err) {
-          this.props.dispatch({
-            type: 'register/submit',
-            payload: values
+          delete values.confirm;
+          values.password = md5(values.password);
+          http.post('sys/register', values).then((data) => {
+            if (data.success) {
+              this.props.history.push('/registerResult');
+            }
           });
         }
       }
     );
-  };
-
-  handleConfirmBlur = (e) => {
-    const {value} = e.target;
-    this.setState({confirmDirty: this.state.confirmDirty || !!value});
   };
 
   checkConfirm = (rule, value, callback) => {
@@ -136,7 +111,6 @@ class Register extends Component {
   render() {
     const {form} = this.props;
     const {getFieldDecorator} = form;
-    const {count} = this.state;
     return (
       <div className="register-wrap">
         <h3>注册</h3>
@@ -151,7 +125,7 @@ class Register extends Component {
             )}
           </FormItem>
           <FormItem>
-            {getFieldDecorator('mail', {
+            {getFieldDecorator('email', {
               rules: [{
                 required: true, message: '请输入邮箱地址！'
               }, {
@@ -203,31 +177,6 @@ class Register extends Component {
             )}
           </FormItem>
           <FormItem>
-            <Row gutter={8}>
-              <Col span={16}>
-                {getFieldDecorator('captcha', {
-                  rules: [{
-                    required: true, message: '请输入验证码！'
-                  }]
-                })(
-                  <Input
-                    size="large"
-                    placeholder="验证码"
-                  />
-                )}
-              </Col>
-              <Col span={8}>
-                <Button
-                  size="large"
-                  disabled={count}
-                  onClick={this.onGetCaptcha}
-                >
-                  {count ? `${count} s` : '获取验证码'}
-                </Button>
-              </Col>
-            </Row>
-          </FormItem>
-          <FormItem>
             <Button size="large" type="primary" htmlType="submit">注册</Button>
           </FormItem>
           <Link to="/user/login">使用已有账户登录</Link>
@@ -236,13 +185,5 @@ class Register extends Component {
     );
   }
 }
-const mapStateToProps = state => {
-  return {
-    app: state.app
-  }
-};
-const mapDispatchToProps = dispatch => ({
-  appActions: bindActionCreators(appActions, dispatch)
-});
 
-export default Form.create()(connect(mapStateToProps, mapDispatchToProps)(Register));
+export default Form.create()(Register);

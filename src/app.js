@@ -1,18 +1,15 @@
 import React, {PureComponent} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 import {HashRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 import 'antd/dist/antd.css';
 import './scss/index.scss';
 import AuthLayout from './layouts/AuthLayout'
 import BaseLayout from './layouts/BaseLayout'
 import PrivateRoute from 'localComponent/PrivateRoute'
-import {appActions} from 'localStore/actions'
 
 /**
  * ***********国际化************
  **/
-import {LocaleProvider, Spin} from 'antd';
+import {LocaleProvider} from 'antd';
 import {addLocaleData, IntlProvider} from 'react-intl';
 import 'intl';
 import 'intl/locale-data/jsonp/en.js';
@@ -45,21 +42,8 @@ console.log('app.js init');
 
 //无状态组件
 class App extends PureComponent {
-  componentWillMount() {
-    this.props.appActions.appCheckLogin();
-  }
-
   render() {
     console.log('App render');
-    let store = this.props.app;
-    //防止页面一闪
-    if (store.isGlobLoading || !store.checkLoginEnd) {
-      return (
-        <div className="glob-loading-wrap">
-          <Spin size="large"/>
-        </div>
-      );
-    }
     return (
       <LocaleProvider locale={appLocale.antd}>
         <IntlProvider locale={appLocale.locale} messages={appLocale.messages}>
@@ -75,16 +59,5 @@ class App extends PureComponent {
   }
 }
 
-
-const mapStateToProps = state => {
-  return {
-    app: state.app
-  }
-};
-const mapDispatchToProps = dispatch => ({
-  //action在此为引入
-  appActions: bindActionCreators(appActions, dispatch)
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
 

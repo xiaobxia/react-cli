@@ -2,6 +2,7 @@ import React from 'react'
 import Bundle from './components/bundle'
 import Login from 'Bundle-loader?lazy!localRoutes/Login'
 import Register from 'Bundle-loader?lazy!localRoutes/Register'
+import RegisterResult from 'Bundle-loader?lazy!localRoutes/RegisterResult'
 import Dashboard from 'Bundle-loader?lazy!localRoutes/Dashboard'
 import Test from 'Bundle-loader?lazy!localRoutes/Test'
 
@@ -28,6 +29,11 @@ export const authRoutes = [
     name: 'Register',
     path: '/user/register',
     component: getComponent(Register)
+  },
+  {
+    name: 'RegisterResult',
+    path: '/user/registerResult',
+    component: getComponent(RegisterResult)
   }
 ];
 
