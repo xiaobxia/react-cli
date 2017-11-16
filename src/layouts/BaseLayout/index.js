@@ -74,6 +74,7 @@ class BaseLayout extends PureComponent {
     consoleRender('BaseLayout render');
     let props = this.props;
     let store = this.props.app;
+    console.log(store.loginUser);
     let state = this.state;
     return (
       <div className="app-main">

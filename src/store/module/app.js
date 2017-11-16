@@ -60,8 +60,7 @@ export const appActions = {
 };
 
 const appStore = {
-  checkLoginEnd: false,
-  loginUser: null,
+  loginUser: {},
   isGlobLoading: false,
   showGlobLogin: false,
   collapsed: localStorage.getItem('collapsed') === 'true'
@@ -79,21 +78,24 @@ export const appReducers = (state = appStore, action) => {
       return data;
     }
     case APP_CHECK_LOGIN: {
-      data.loginUser = null;
+      data.loginUser = {};
       data.isGlobLoading = true;
       return data;
     }
     case APP_CHECK_LOGIN_SUC: {
       data.isGlobLoading = false;
-      data.checkLoginEnd = true;
       if (action.loginUser.isLogin === true) {
         data.loginUser = action.loginUser;
         localStorage.setItem('userCode', action.loginUser.userCode);
+      } else {
+        data.loginUser = {
+          isLogin: false
+        }
       }
       return data;
     }
     case APP_LOGIN: {
-      data.loginUser = null;
+      data.loginUser = {};
       return data;
     }
     case APP_LOGIN_SUC: {
@@ -104,17 +106,15 @@ export const appReducers = (state = appStore, action) => {
       localStorage.setItem('userCode', action.loginUser.userCode);
       return data;
     }
-    // case APP_INSET_LOGIN: {
-    //   data.loginUser = null;
-    //   return data;
-    // }
     case APP_INSET_LOGIN_SUC: {
       data.loginUser = action.loginUser;
       localStorage.setItem('userCode', action.loginUser.userCode);
       return data;
     }
     case APP_LOGOUT_SUC: {
-      data.loginUser = null;
+      data.loginUser = {
+        isLogin: false
+      };
       return data;
     }
     case APP_SHOW_GLOB_LOGIN: {
