@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import {bindActionCreators} from 'redux';
-import {Icon, Layout, Spin} from 'antd';
+import {Icon, Layout, notification} from 'antd';
 import {injectIntl} from 'react-intl';
 import AppMenu from './menu'
 import AppHeader from './header'
@@ -57,6 +57,13 @@ class BaseLayout extends PureComponent {
 
   //生命周期mount
   componentDidMount() {
+    if (this.props.app.loginUser.active === 'N') {
+      notification.open({
+        message: 'Notification Title',
+        description: '请尽快去验证邮箱',
+        icon: <Icon type="smile-circle" style={{color: '#108ee9'}}/>
+      });
+    }
   }
 
   //生命周期销毁前
@@ -67,14 +74,6 @@ class BaseLayout extends PureComponent {
     consoleRender('BaseLayout render');
     let props = this.props;
     let store = this.props.app;
-    //防止页面一闪
-    if (store.isGlobLoading) {
-      return (
-        <div className="glob-loading-wrap">
-          <Spin size="large"/>
-        </div>
-      );
-    }
     let state = this.state;
     return (
       <div className="app-main">
