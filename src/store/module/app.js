@@ -21,7 +21,7 @@ export const appActions = {
   appCheckLogin() {
     return (dispatch, getState) => {
       dispatch({type: APP_CHECK_LOGIN});
-      return http.get('sys/checkLogin').then((data) => {
+      return http.get('sys/auth/checkLogin').then((data) => {
         dispatch({type: APP_CHECK_LOGIN_SUC, loginUser: data});
       });
     };
@@ -29,7 +29,7 @@ export const appActions = {
   appLogin({user, password}) {
     return (dispatch, getState) => {
       dispatch({type: APP_LOGIN});
-      return http.post('sys/Login', {account: user, password: md5(password)}).then((data) => {
+      return http.post('sys/auth/login', {account: user, password: md5(password)}).then((data) => {
         if (data.login === true) {
           dispatch({type: APP_LOGIN_SUC, loginUser: data});
         }
@@ -40,14 +40,14 @@ export const appActions = {
   appInsetLogin({user, password}) {
     return (dispatch, getState) => {
       //内部登录，减少状态变化
-      return http.post('sys/Login', {account: user, password: md5(password)}).then((data) => {
+      return http.post('sys/auth/login', {account: user, password: md5(password)}).then((data) => {
         dispatch({type: APP_INSET_LOGIN_SUC, loginUser: data});
       });
     };
   },
   appLogout() {
     return (dispatch, getState) => {
-      return http.get('sys/logout').then((res) => {
+      return http.get('sys/auth/logout').then((res) => {
         dispatch({type: APP_LOGOUT_SUC});
       });
     };

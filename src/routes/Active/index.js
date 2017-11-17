@@ -24,7 +24,7 @@ class UserActive extends PureComponent {
       });
       return false;
     }
-    http.get('sys/register/active' + this.props.location.search).then((data) => {
+    http.get('sys/user/register/active' + this.props.location.search).then((data) => {
       if (data.success) {
         this.setState({
           verifyEnd: true,

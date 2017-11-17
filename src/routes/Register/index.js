@@ -46,7 +46,7 @@ class Register extends Component {
         if (!err) {
           delete values.confirm;
           values.password = md5(values.password);
-          http.post('sys/register', values).then((data) => {
+          http.post('sys/user/register', values).then((data) => {
             if (data.success) {
               this.props.history.push('/user/registerResult?code=' + data.code);
             }

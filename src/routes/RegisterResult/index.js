@@ -25,7 +25,7 @@ class RegisterResult extends PureComponent {
       });
       return false;
     }
-    http.get('sys/register/result' + this.props.location.search).then((data) => {
+    http.get('sys/user/register/result' + this.props.location.search).then((data) => {
       if (data.success) {
         this.setState({
           verifyEnd: true,
