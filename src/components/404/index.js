@@ -4,12 +4,13 @@
 import React, {PureComponent} from 'react'
 import {Alert} from 'antd';
 import {consoleRender} from 'localUtil/consoleLog'
+import img404 from '../../../static/404.png'
 
 class Exception404 extends PureComponent {
   render() {
     consoleRender('Exception404 render');
     return (
-      <img src="/static/404.png" alt=""/>
+      <img src={img404} alt=""/>
     );
   }
 }
