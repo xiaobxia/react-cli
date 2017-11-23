@@ -6,10 +6,13 @@ module.exports = {
     env: require('./prod.env'),
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
-    assetsSubDirectory: 'static',
-    //解决打包时font的问题
+    // assetsSubDirectory: 'static',
+    assetsSubDirectory: '',
+    // 解决打包时font的问题
     assetsPathInCss: '../../',
-    assetsPublicPath: './',
+    // assetsPublicPath: './',
+    //放七牛加速，减少带宽占用
+    assetsPublicPath: 'http://ozuuc00xw.bkt.clouddn.com/',
     //打包就移除sourceMap
     productionSourceMap: false,
     // Gzip off by default as many popular static hosts such as
