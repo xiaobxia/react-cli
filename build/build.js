@@ -9,6 +9,8 @@ var chalk = require('chalk')
 var webpack = require('webpack')
 var config = require('../config')
 var webpackConfig = require('./webpack.prod.conf')
+const fs = require('fs')
+const upload = require('./cdn');
 
 var spinner = ora('building for production...')
 spinner.start()
@@ -31,5 +33,13 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
       '  Tip: built files are meant to be served over an HTTP server.\n' +
       '  Opening index.html over file:// won\'t work.\n'
     ))
+
+    let baseDir = path.resolve(__dirname, '../dist');
+    const promiseList = fs.readdirSync(baseDir).map(function (file) {
+      return upload(path.resolve(baseDir, file), file);
+    });
+    Promise.all(promiseList).then(function () {
+      console.log(chalk.cyan('  upload complete.\n'))
+    })
   })
 })

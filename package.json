@@ -20,6 +20,7 @@
     "moment": "^2.18.1",
     "nprogress": "^0.2.0",
     "prop-types": "^15.6.0",
+    "qiniu": "^7.1.1",
     "qs": "^6.5.0",
     "react": "^15.6.1",
     "react-addons-perf": "^15.4.2",
