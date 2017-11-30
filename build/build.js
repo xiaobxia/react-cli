@@ -10,10 +10,22 @@ var webpack = require('webpack')
 var config = require('../config')
 var webpackConfig = require('./webpack.prod.conf')
 const fs = require('fs')
-const upload = require('./cdn');
+const cdn = require('./cdn');
+const baseDir = path.resolve(__dirname, '../dist');
 
 var spinner = ora('building for production...')
 spinner.start()
+cdn.getCdnFileList().then((fileList) => {
+  if (!fileList.length) {
+    console.log('no file');
+    return;
+  }
+  cdn.deleteCdnFile(fileList.map((item) => {
+    return item.key;
+  })).then(() => {
+    console.log('all delete')
+  });
+});
 //TODO 只适合单页应用，因为它不删html，只删static
 rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
   if (err) throw err
@@ -34,9 +46,8 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
       '  Opening index.html over file:// won\'t work.\n'
     ))
 
-    let baseDir = path.resolve(__dirname, '../dist');
     const promiseList = fs.readdirSync(baseDir).map(function (file) {
-      return upload(path.resolve(baseDir, file), file);
+      return cdn.upload(path.resolve(baseDir, file), file);
     });
     Promise.all(promiseList).then(function () {
       console.log(chalk.cyan('  upload complete.\n'))
