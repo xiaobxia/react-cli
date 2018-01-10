@@ -38,7 +38,6 @@ const appLocale = {
 // };
 
 addLocaleData(appLocale.data);
-console.log('app.js init');
 
 //无状态组件
 class App extends PureComponent {
