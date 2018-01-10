@@ -49,13 +49,13 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
       '  Opening index.html over file:// won\'t work.\n'
     ))
 
-    if (ifCdn) {
-      const promiseList = fs.readdirSync(baseDir).map(function (file) {
-        return cdn.upload(path.resolve(baseDir, file), file);
-      });
-      Promise.all(promiseList).then(function () {
-        console.log(chalk.cyan('  upload complete.\n'))
-      })
-    }
+    // if (ifCdn) {
+    //   const promiseList = fs.readdirSync(baseDir).map(function (file) {
+    //     return cdn.upload(path.resolve(baseDir, file), file);
+    //   });
+    //   Promise.all(promiseList).then(function () {
+    //     console.log(chalk.cyan('  upload complete.\n'))
+    //   })
+    // }
   })
 })
